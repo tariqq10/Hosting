@@ -5,23 +5,34 @@ import { postDonation } from "../slices/charity";
 import { useDispatch } from "react-redux";
 import {setDonations} from "../slices/donationSlice"
 
-const DonationPage = ({donationRequest, onclose}) => {
+const DonationPage = ({donationRequest, onClose, onDonate}) => {
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch()
 
   const donorPhone = localStorage.getItem("donorPhone")
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const onAmountChange = (e) => {
+    const value = e.target.value;
 
-    if (!amount || amount <= 0){
-      setError('Please enter a valid donation amount.')
+    if (!isNaN(value) || value === "") {
+      setAmount(value);
+    }
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const num = parseFloat(amount)
+
+    if (isNaN(num) || amount <= 0) {
+      setError("Please enter a valid donation amount.");
       return;
     }
 
-    if(!donorPhone){
-      setError("Phone number is required")
+    if (!donorPhone) {
+      setError("Phone number is required");
       return;
     }
 
@@ -30,34 +41,71 @@ const DonationPage = ({donationRequest, onclose}) => {
         amount: parseFloat(amount),
         donation_request_id: donationRequest.donation_request_id,
         donorPhone: donorPhone,
-      }
+      };
 
-      const response = await postDonation(donationData);
-      alert("Donation Seccessful!")
-      dispatch(setDonations(response.data.donations))
-      onclose();
+      const accessToken = localStorage.getItem("session");
+      const response = await fetch("http://127.0.0.1:5000/donations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${JSON.parse(accessToken).access_token}`,
+        },
+        body: JSON.stringify(donationData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert("Donation Successful!");
+        dispatch(setDonations(data.donations));
+        onclose(); // Close the donation modal
+      } else {
+        setError("Failed to make donation, please try again.");
+      }
     } catch (error) {
-      setError("Failed to make donation, Please try again")
+      setError("An error occurred while processing the donation.");
     }
-  }
+  };
     
   return (
     <div className="donation-page">
       <NavBar />
-      <button onClick={onclose}>X</button>
-      <h2>Donate to {donationRequest}</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        {error && <div>{error}</div>}
-        <button type="submit">Donate</button>
-      </form>
+      <div className="donation-modal">
+        <h2>Donate to {donationRequest.title}</h2>
+        <p>{donationRequest.description}</p>
+        <p>
+          <strong>Target Amount:</strong> {donationRequest.target_amount}
+        </p>
+
+        {/* Donation Amount Input */}
+        <div>
+          <label htmlFor="donationAmount">Enter Donation Amount</label>
+          <input
+            type="number"
+            id="donationAmount"
+            value={amount}
+            onChange={onAmountChange}
+            placeholder="Enter amount"
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div>
+          <button onClick={onDonate}>Donate</button>
+        </div>
+
+        {/* Close Button */}
+        <div>
+          <button onClick={onClose}>Close</button>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default DonationPage;
+
+
+
+
+
+
