@@ -3,25 +3,39 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 200px; 
-  height: 100vh;
-  background-color: #2a3b4c; 
-  color: white;
+  width: 210px;
+  height: 100%;
+  background-color: #333;
+  /* color: white; */
   padding-top: 20px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .sidebar ul {
   list-style-type: none;
   padding: 0;
-  
+   padding-top: 60px;
   margin: 3px;
   display: flex;
   flex-direction: column; 
+}
+.sidebar ul li {
+  padding: 15px;
+  color: white;
+  
 }
 
 .sidebar li {
   margin: 20px 0;
   width: 155px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: rgb(25, 9, 9);
+  display: flex;
+  align-items: center;
+  font-size: 14px;
 }
 
 .sidebar a {
@@ -36,16 +50,25 @@
  .sidebar a:hover {
   background-color: #2a3b4c;; 
 } 
-
+.sidebar .icon_left {
+  margin-right: 10px;
+}
+.hamburger {
+  display: none;
+  cursor: pointer;
+  color: white;
+  font-size: 30px;
+  padding: 10px;
+}
 .dashboard-main-content {
   margin-left: 220px; 
   padding: 20px;
 }
 .icon_left {
-  margin-left: -30px; /* Adjust as needed */
+  margin-left: -30px; 
   color: #26939f;
 }
 .material-symbols-outlined {
-  margin-right: 5px; /* Space between icon and text */
+  margin-right: 5px; 
 }
  
