@@ -7,39 +7,42 @@ const DonationRequest = () => {
   const [requests, setRequests] = useState([]);
   const [error, setError] = useState(null); 
 
-  
-  const accessToken = localStorage.getItem('session');
-  let access = JSON.parse(accessToken).access_token
+// Retrieve the access token from local storage
+const accessToken = localStorage.getItem('session');
+let access = JSON.parse(accessToken).access_token;
 
-  console.log(access)
+
+  const access = localStorage.getItem("session");
+
+  const ngoId = JSON.parse(access);
+
 
   useEffect(() => {
-    if (!accessToken) {
-      setError("No access token found. Please log in again.");
-      return;
-    }
-
-    const fetchRequests = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:5000/requests', {
-          headers: {
-            'Authorization': `Bearer ${access}`,
-          },
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setRequests(data);
-        } else {
-          const errorText = await response.text();
-          setError(`Failed to fetch donation requests: ${errorText}`);
+    // Ensure the token is available before making the request
+    if (access) {
+      const fetchRequests = async () => {
+        try {
+          const response = await fetch("http://127.0.0.1:5000/requests", {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${JSON.parse(access).access_token}`,
+            },
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setRequests(data); 
+          } else {
+            console.error("Failed to fetch donation requests:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error fetching requests:", error);
         }
-      } catch (error) {
-        setError(`Error fetching requests: ${error.message}`);
-      }
-    };
-
-    fetchRequests();
-  }, [accessToken]);
+      };
+      fetchRequests();
+    } else {
+      console.error("No access token found.");
+    }
+  }, [access]);
 
  const handleApprove = async (id) => {
   try {
