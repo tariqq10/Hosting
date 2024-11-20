@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/profile.css"; // Corrected path
 import NavBar from "./NavBar";
 
+
 const Profile = () => {
   const [donor, setDonor] = useState({});
   const [donations, setDonations] = useState([]);
