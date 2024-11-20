@@ -83,7 +83,7 @@
 
 .category-list .category-id {
   font-weight: bold;
-  color: #880E4F;
+  color: #138086;
 }
 
 .category-list .total-amount {
@@ -123,7 +123,7 @@ body {
 }
 
 .content {
-  margin-left: 250px; /* Sidebar width */
+  margin-left: 250px; 
   padding: 20px;
   width: 100%;
 }
@@ -131,3 +131,8 @@ body {
   font-size: 20px;
   color: aliceblue;
 } 
+.organization-details-main-content {
+  background-color: #e9f0f5;
+  border-radius: 8px;
+  padding: 20px;
+}

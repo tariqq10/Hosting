@@ -5,9 +5,9 @@ import CategoriesList from "../components/CategoryList";
 
 const DonationRequest = () => {
   const [requests, setRequests] = useState([]);
-  const [error, setError] = useState(null); // State for managing errors
+  const [error, setError] = useState(null); 
 
-  // Retrieve the access token from local storage
+  
   const accessToken = localStorage.getItem('session');
   let access = JSON.parse(accessToken).access_token
 
@@ -49,7 +49,7 @@ const DonationRequest = () => {
         'Authorization': `Bearer ${access}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ status: 'approved' }), // Ensure this matches the API's expected body format
+      body: JSON.stringify({ status: 'approved' }), 
     });
 
     if (response.ok) {
@@ -92,60 +92,69 @@ const DonationRequest = () => {
   };
 
   return (
-    <div className="donation-content">
-      <AdminNavBar />
-      <h2>Pending Donation Requests</h2>
-      {error && <p className="text-danger">{error}</p>} {/* Display error messages */}
-      <table className="table table-striped table-hover">
-        <thead className="table-dark">
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Target Amount</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requests.length > 0 ? (
-            requests.map(request => (
-              <tr key={request.request_id}>
-                <td>{request.title}</td>
-                <td>{request.description}</td>
-                <td>{request.target_amount}</td>
-                <td>{request.status}</td>
-                <td>
-                  {request.status === 'pending' ? (
-                    <>
-                      <button
-                        className="btn btn-success btn-sm me-2"
-                        onClick={() => handleApprove(request.request_id)}
-                      >
-                        Approve
-                      </button>
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => handleReject(request.request_id)}
-                      >
-                        Reject
-                      </button>
-                    </>
-                  ) : (
-                    <span className={`badge bg-${request.status === 'approved' ? 'success' : 'danger'}`}>
-                      {request.status}
-                    </span>
-                  )}
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" className="text-center">No requests available</td>
+    <div id="donation-content">
+    <AdminNavBar />
+    <h2 id="requests-title">Pending Donation Requests</h2>
+    {error && <p id="error-message" className="text-danger">{error}</p>} {/* Display error messages */}
+    <div id="table-container">
+    <table id="requests-table" className="table table-striped table-hover">
+      <thead id="table-header" className="table-dark">
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Target Amount</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {requests.length > 0 ? (
+          requests.map(request => (
+            <tr key={request.request_id}>
+              <td>{request.title}</td>
+              <td>{request.description}</td>
+              <td>{request.target_amount}</td>
+              <td>{request.status}</td>
+              <td>
+                {request.status === 'pending' ? (
+                  <>
+                    <button
+                      id={`approve-btn-${request.request_id}`}
+                      className="btn btn-success btn-sm me-2"
+                      onClick={() => handleApprove(request.request_id)}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      id={`reject-btn-${request.request_id}`}
+                      className="btn btn-danger btn-sm"
+                      onClick={() => handleReject(request.request_id)}
+                    >
+                      Reject
+                    </button>
+                  </>
+                ) : (
+                  <span
+                    id={`status-badge-${request.request_id}`}
+                    className={`badge bg-${request.status === 'approved' ? 'success' : 'danger'}`}
+                  >
+                    {request.status}
+                  </span>
+                )}
+              </td>
             </tr>
-          )}
-        </tbody>
-      </table>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="5" id="no-requests-message" className="text-center">
+              No requests available
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
     </div>
+  </div>
   );
 };
 
