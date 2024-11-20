@@ -16,7 +16,7 @@ class DonationRequestResource(Resource):
     
     def get(self, id=None):
         if id is None:
-            all_requests = Donation_request.query.all()
+            all_requests = Donation_request.query.filter_by(organization_id=organization_id).all()
             return [request.to_dict() for request in all_requests], 200
         request = Donation_request.query.filter_by(request_id=id).first()
         if request is None:

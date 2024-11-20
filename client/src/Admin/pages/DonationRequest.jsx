@@ -6,16 +6,21 @@ const DonationRequest = () => {
   const [requests, setRequests] = useState([]);
 
   // Retrieve the access token from local storage
-  const accessToken = localStorage.getItem('accessToken'); 
+
+  const access = localStorage.getItem("session");
+
+  const ngoId = JSON.parse(access);
+
 
   useEffect(() => {
     // Ensure the token is available before making the request
     if (accessToken) {
       const fetchRequests = async () => {
         try {
-          const response = await fetch('http://127.0.0.1:5000/requests', {
+          const response = await fetch("http://127.0.0.1:5000/requests", {
             headers: {
-              'Authorization': `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${JSON.parse(access).access_token}`,
             },
           });
           if (response.ok) {
