@@ -8,7 +8,7 @@ const OrganizationList = () => {
   const [organizations, setOrganizations] = useState([]);
 
   const fetchOrganizations = async () => {
-    const token = localStorage.getItem('access_token'); 
+    const token = localStorage.getItem('access_token');
     try {
       const response = await axios.get('http://127.0.0.1:5000/organizations', {
         headers: {
@@ -21,50 +21,41 @@ const OrganizationList = () => {
     }
   };
 
-  const deleteOrganization = async (id) => {
-    console.log('Deleting organization with ID:', id);  // Log the ID to check its value
-    const token = localStorage.getItem('access_token'); 
-    try {
-      await axios.delete(`http://127.0.0.1:5000/organizations/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      alert('Organization deleted successfully.');
-      fetchOrganizations();
-    } catch (error) {
-      console.error('Error deleting organization:', error);
-    }
-  };
-  
-
-  const updateOrganization = async (id, updatedData) => {
-    const token = localStorage.getItem('access_token'); 
-    try {
-      await axios.patch(`http://127.0.0.1:5000/organizations/${id}`, updatedData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      alert('Organization updated successfully.');
-      fetchOrganizations();
-    } catch (error) {
-      console.error('Error updating organization:', error);
-    }
-  };
-
   useEffect(() => {
     fetchOrganizations();
   }, []);
+
+  const deleteOrganization = async (organization_id) => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      await axios.delete(`http://127.0.0.1:5000/organizations/${organization_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      fetchOrganizations();
+    }
+  };
+
+  const updateOrganization = async (organization_id, updatedData) => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      await axios.patch(
+        `http://127.0.0.1:5000/organizations/${organization_id}`,
+        updatedData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      fetchOrganizations();
+    }
+  };
 
   return (
     <div className="dashboard-container">
       <AdminNavBar />
       <div className="dashboard-main-content">
-        <h2 className="org-Label">All Organizations</h2>
         {organizations.map((organization) => (
-          <OrganizationItem 
-            key={organization.id} 
+          <OrganizationItem
+            key={organization.organization_id}
             organization={organization}
             deleteOrganization={deleteOrganization}
             updateOrganization={updateOrganization}
@@ -75,4 +66,4 @@ const OrganizationList = () => {
   );
 };
 
-export default OrganizationList; 
+export default OrganizationList;

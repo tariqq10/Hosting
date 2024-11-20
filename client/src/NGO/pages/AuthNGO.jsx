@@ -110,7 +110,7 @@ const AuthNGO = () => {
               <form onSubmit={formik.handleSubmit}>
 
 
-                <select
+                <select>
                   type="text"
                   name="role"
                   value={formik.values.role}
@@ -134,21 +134,6 @@ const AuthNGO = () => {
                     formik.errors.organization_name ? "failure" : undefined
                   }
                 />
-                    
-                <input
-                  type="text"
-                  name="organization_description"
-                  placeholder="Organization Description"
-                  value={formik.values.organization_description}
-                  onChange={formik.handleChange}
-                  helpertext={formik.errors.organization_description}
-                  color={
-                    formik.errors.organization_description
-                      ? "failure"
-                      : undefined
-                  }
-                />
-
                 <input
                   type="email"
                   name="email"

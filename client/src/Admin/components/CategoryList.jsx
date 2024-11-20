@@ -1,25 +1,19 @@
 import { useEffect, useState } from "react";
-import CategoryItem from "./CategoryItem";
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
-  const [filteredRequests, setFilteredRequests] = useState([]);
+  const [selectedDescription, setSelectedDescription] = useState(""); // State for selected description
   
-  const handleFilter = (category) => {
-    const filtered = categories.filter((cat) => cat.name === category);
-    setFilteredRequests(filtered);
-  };
-
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("session"));
     if (!session) return;
 
-    const accessToken = session.access_token; 
+    const accessToken = session.access_token;
     fetch("http://127.0.0.1:5000/categories", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${accessToken}`, 
+        "Authorization": `Bearer ${accessToken}`,
       },
     })
       .then((res) => {
@@ -29,30 +23,49 @@ const CategoriesList = () => {
         return res.json();
       })
       .then((data) => {
-        setCategories(data); 
-        setFilteredRequests(data); 
+        setCategories(data);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
       });
   }, []);
 
+  const handleCategoryClick = (description) => {
+    setSelectedDescription(description); // Update description based on button clicked
+  };
+
   return (
     <div>
-      <div>
-        <button onClick={() => handleFilter("Education")}>Education</button>
-        <button onClick={() => handleFilter("Healthcare")}>Health Care</button>
-        <button onClick={() => handleFilter("")}>All</button>
+      <div className="category-div">
+        {categories.length > 0 ? (
+          categories.map((category) => (
+            <button
+              key={`${category.category_id}-${category.name}`}
+              onClick={() => handleCategoryClick(category.description)} // Pass description to handler
+              style={{
+                margin: "5px",
+                padding: "10px",
+                border: "1px solid #ddd",
+                borderRadius: "5px",
+                background: "#113047",
+                cursor: "pointer",
+              }}
+            >
+              {category.name}
+            </button>
+          ))
+        ) : (
+          <p>No categories available on the backend</p>
+        )}
       </div>
-      {filteredRequests.length > 0 ? (
-        filteredRequests.map((category) => (
-          <CategoryItem key={`${category.id}-${category.name}`} {...category} />  
-        ))
-      ) : (
-        <p>No categories available on the backend</p>
+      {selectedDescription && (
+        <div style={{ marginTop: "20px", padding: "10px", border: "1px solid #ddd", borderRadius: "5px" }}>
+          <h4>Category Description</h4>
+          <p>{selectedDescription}</p>
+        </div>
       )}
     </div>
   );
 };
 
-export default CategoriesList; 
+export default CategoriesList;

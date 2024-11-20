@@ -19,6 +19,7 @@ from Resources.mpesa import GetAccessToken
 
 
 
+
 #load enviroment variables from .env file
 load_dotenv()
 
@@ -56,6 +57,7 @@ api.add_resource(ReportResource, '/reports/user/<int:user_id>', endpoint="user_d
 # Register resources
 api.add_resource(GetAccessToken, '/access_token')  # Assuming GetAccessToken class is defined correctly
 # Register STK push class as a resource
+
 
 
 

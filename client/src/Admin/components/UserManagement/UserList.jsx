@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import UserRow from './UserRow';
-import "../../styles/userManagement.css";
+import '../../styles/userManagement.css';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const session = JSON.parse(localStorage.getItem('session')); 
-  const adminToken = session ? session.access_token : null; 
+  const session = JSON.parse(localStorage.getItem('session'));
+  const adminToken = session ? session.access_token : null;
 
   useEffect(() => {
     if (adminToken) {
@@ -30,7 +30,8 @@ const UserList = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch users');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to fetch users');
       }
 
       const data = await response.json();
@@ -54,8 +55,10 @@ const UserList = () => {
 
       if (response.ok) {
         setUsers(users.filter(user => user.user_id !== userId));
+        alert('User deleted successfully.');
       } else {
-        throw new Error('Failed to delete user');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to delete user');
       }
     } catch (error) {
       setError(`Error deleting user: ${error.message}`);
@@ -87,4 +90,4 @@ const UserList = () => {
   );
 };
 
-export default UserList; 
+export default UserList;

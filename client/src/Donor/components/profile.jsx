@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../styles/profile.css"; // Corrected path
-import NavBar from "./NavBar";
+import "./assets/styles/profile.css"; // Corrected path
 
 const Profile = () => {
   const [donor, setDonor] = useState({});
@@ -12,7 +11,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchDonorData = async () => {
       try {
-        const response = await fetch("/donations/<int:id>");
+        const response = await fetch("http://127.0.0.1:5000/users");
         const data = await response.json();
         setDonor(data);
         setName(data.name);
@@ -38,7 +37,7 @@ const Profile = () => {
     const updatedDonor = { name, email };
 
     try {
-      const response = await fetch("/api/donor-profile", {
+      const response = await fetch("http://127.0.0.1:5000/users", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedDonor),
@@ -56,7 +55,6 @@ const Profile = () => {
 
   return (
     <div className="profile">
-      <NavBar/>
       <h2>Donor Profile</h2>
       <form onSubmit={handleProfileUpdate}>
         <label>Name:</label>

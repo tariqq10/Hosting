@@ -2,32 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const OrganizationForm = ({ organization, setOrganization, createOrganization }) => {
-  const { id } = useParams();
+const OrganizationForm = () => {
+  const { organization_id } = useParams(); 
   const navigate = useNavigate();
 
-  const [orgData, setOrgData] = useState(organization || {
+  const [orgData, setOrgData] = useState({
     name: '',
     contactInfo: '',
     address: '',
+    description: '', 
   });
 
-  const token = localStorage.getItem('access_token'); 
-
-  if (!token) {
-    navigate('/login'); 
-    return null; 
-  }
-
-  const headers = {
-    Authorization: `Bearer ${token}`, 
-  };
-
   useEffect(() => {
-    if (id) {
+    if (organization_id) {
       const fetchOrganization = async () => {
         try {
-          const response = await axios.get(`http://127.0.0.1:5000/organizations/${id}`, { headers });
+          const response = await axios.get(
+            `http://127.0.0.1:5000/organizations/${organization_id}`
+          );
           setOrgData(response.data);
         } catch (error) {
           console.error('Error fetching organization:', error);
@@ -35,7 +27,7 @@ const OrganizationForm = ({ organization, setOrganization, createOrganization })
       };
       fetchOrganization();
     }
-  }, [id]);
+  }, [organization_id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,10 +40,11 @@ const OrganizationForm = ({ organization, setOrganization, createOrganization })
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (id) {
-        await axios.patch(`http://127.0.0.1:5000/organizations/${id}`, orgData, { headers });
-      } else {
-        await axios.post('http://127.0.0.1:5000/organizations', orgData, { headers });
+      if (organization_id) {
+        await axios.patch(
+          `http://127.0.0.1:5000/organizations/${organization_id}`,
+          orgData
+        );
       }
       navigate('/admin/organizations'); 
     } catch (error) {
@@ -88,9 +81,19 @@ const OrganizationForm = ({ organization, setOrganization, createOrganization })
           onChange={handleInputChange}
         />
       </div>
-      <button type="submit">{id ? 'Update Organization' : 'Add Organization'}</button>
+      <div>
+        <label>Description:</label>
+        <textarea
+          name="description"
+          value={orgData.description}
+          onChange={handleInputChange}
+        />
+      </div>
+      <button type="submit">
+        {organization_id ? 'Update Organization' : 'Add Organization'}
+      </button>
     </form>
   );
 };
 
-export default OrganizationForm; 
+export default OrganizationForm;

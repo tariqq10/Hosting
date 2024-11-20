@@ -33,9 +33,9 @@
   transition: background 0.3s;
 }
 
-.sidebar a:hover {
-  background-color: #B22E37; 
-}
+ .sidebar a:hover {
+  background-color: #2a3b4c;; 
+} 
 
 .dashboard-main-content {
   margin-left: 220px; 
