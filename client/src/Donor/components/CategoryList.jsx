@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
-import CategoryItem from "./CategoryItem";
-import NavBar from "./NavBar";
+import NavBar from "./NavBar"
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
-  const [filteredRequests, setFilteredRequests] = useState([]);
-
-  const handleFilter = (category) => {
-    const filtered = categories.filter((cat) => cat.name === category);
-    setFilteredRequests(filtered);
-  };
+  const [selectedDescription, setSelectedDescription] = useState(""); // State for selected description
 
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("session"));
@@ -31,22 +25,53 @@ const CategoriesList = () => {
       })
       .then((data) => {
         setCategories(data);
-        setFilteredRequests(data);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
       });
   }, []);
 
+  const handleCategoryClick = (description) => {
+    setSelectedDescription(description); // Update description based on button clicked
+  };
+
   return (
     <div>
-      <NavBar />
-      {filteredRequests.length > 0 ? (
-        filteredRequests.map((category) => (
-          <CategoryItem key={`${category.id}-${category.name}`} {...category} />
-        ))
-      ) : (
-        <p>No categories available on the backend</p>
+      <div className="category-div">
+        <NavBar/>
+        {categories.length > 0 ? (
+          categories.map((category) => (
+            <button
+              key={`${category.category_id}-${category.name}`}
+              onClick={() => handleCategoryClick(category.description)} // Pass description to handler
+              style={{
+                margin: "5px",
+                padding: "10px",
+                border: "1px solid #ddd",
+                borderRadius: "5px",
+                background: "#113047",
+                cursor: "pointer",
+              }}
+            >
+              {category.name}
+            </button>
+          ))
+        ) : (
+          <p>No categories available on the backend</p>
+        )}
+      </div>
+      {selectedDescription && (
+        <div
+          style={{
+            marginTop: "20px",
+            padding: "10px",
+            border: "1px solid #ddd",
+            borderRadius: "5px",
+          }}
+        >
+          <h4>Category Description</h4>
+          <p>{selectedDescription}</p>
+        </div>
       )}
     </div>
   );

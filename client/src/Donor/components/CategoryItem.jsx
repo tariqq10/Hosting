@@ -3,6 +3,8 @@ const CategoryItem = ({ name, description, created_at }) => {
     <li>
       <div>
         <button>{name}</button>
+        <p>{description}</p>
+        <p>{created_at}</p>
       </div>
     </li>
   );
