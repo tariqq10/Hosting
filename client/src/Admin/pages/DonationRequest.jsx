@@ -16,7 +16,7 @@ const DonationRequest = () => {
 
   useEffect(() => {
     // Ensure the token is available before making the request
-    if (accessToken) {
+    if (access) {
       const fetchRequests = async () => {
         try {
           const response = await fetch("http://127.0.0.1:5000/requests", {
@@ -39,7 +39,7 @@ const DonationRequest = () => {
     } else {
       console.error("No access token found.");
     }
-  }, [accessToken]);
+  }, [access]);
 
  const handleApprove = async (id) => {
   try {
