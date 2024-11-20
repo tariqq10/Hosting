@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./assets/styles/profile.css"; // Corrected path
+import "../styles/profile.css"; // Corrected path
 
 const Profile = () => {
   const [donor, setDonor] = useState({});
