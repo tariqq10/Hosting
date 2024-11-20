@@ -1,46 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const OrganizationForm = () => {
-  const { id } = useParams();
+const OrganizationForm = ({ initialData, onSubmitSuccess }) => {
+  const { organization_id } = useParams();
   const navigate = useNavigate();
-
-  const [organization, setOrganization] = useState({
+  const [orgData, setOrgData] = useState({
     name: '',
     contactInfo: '',
     address: '',
+    description: '',
   });
-
-  const token = localStorage.getItem('access_token'); 
-
-  if (!token) {
-    navigate('/login'); 
-    return null; 
-  }
-
-  
-  const headers = {
-    Authorization: `Bearer ${token}`, 
-  };
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (id) {
+    if (initialData) {
+      setOrgData(initialData);
+    } else if (organization_id) {
       const fetchOrganization = async () => {
+        const accessToken = localStorage.getItem('session');
+        let access = null;
+        if (accessToken) {
+          access = JSON.parse(accessToken).access_token;
+        }
+
+        if (!access) {
+          navigate('/login');
+          return;
+        }
+
         try {
-          const response = await axios.get(`http://127.0.0.1:5000/organizations/${id}`, { headers });
-          setOrganization(response.data);
+          const response = await axios.get(
+            `http://127.0.0.1:5000/organizations/${organization_id}`,
+            {
+              headers: { Authorization: `Bearer ${access}` }
+            }
+          );
+          setOrgData(response.data);
         } catch (error) {
           console.error('Error fetching organization:', error);
+          setError('Failed to fetch organization details');
+          if (error.response && error.response.status === 401) {
+            navigate('/login');
+          }
         }
       };
+
       fetchOrganization();
     }
-  }, [id]);
+  }, [organization_id, initialData, navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setOrganization((prevOrg) => ({
+    setOrgData((prevOrg) => ({
       ...prevOrg,
       [name]: value,
     }));
@@ -48,30 +60,63 @@ const OrganizationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!orgData.name.trim()) {
+      setError('Organization name is required');
+      return;
+    }
+
+    const accessToken = localStorage.getItem('session');
+    let access = null;
+    if (accessToken) {
+      access = JSON.parse(accessToken).access_token;
+    }
+
+    if (!access) {
+      navigate('/login');
+      return;
+    }
 
     try {
-      if (id) {
-        
-        await axios.patch(`http://127.0.0.1:5000/organizations/${id}`, organization, { headers });
+      if (organization_id) {
+        await axios.patch(
+          `http://127.0.0.1:5000/organizations/${organization_id}`,
+          orgData,
+          { headers: { Authorization: `Bearer ${access}` } }
+        );
       } else {
-        
-        await axios.post('http://127.0.0.1:5000/organizations', organization, { headers });
+        await axios.post(
+          'http://127.0.0.1:5000/organizations',
+          orgData,
+          { headers: { Authorization: `Bearer ${access}` } }
+        );
       }
-      navigate('/admin/organizations'); 
+
+      if (onSubmitSuccess) {
+        onSubmitSuccess();
+      } else {
+        navigate('/admin/organizations');
+      }
     } catch (error) {
       console.error('Error saving organization:', error);
+      setError('Failed to save organization');
+      if (error.response && error.response.status === 401) {
+        navigate('/login');
+      }
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {error && <div className="error-message">{error}</div>}
       <div>
         <label>Name:</label>
         <input
           type="text"
           name="name"
-          value={organization.name}
+          value={orgData.name}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div>
@@ -79,7 +124,7 @@ const OrganizationForm = () => {
         <input
           type="text"
           name="contactInfo"
-          value={organization.contactInfo}
+          value={orgData.contactInfo || ''}
           onChange={handleInputChange}
         />
       </div>
@@ -88,13 +133,25 @@ const OrganizationForm = () => {
         <input
           type="text"
           name="address"
-          value={organization.address}
+          value={orgData.address || ''}
           onChange={handleInputChange}
         />
       </div>
-      <button type="submit">{id ? 'Update Organization' : 'Add Organization'}</button>
+      <div>
+        <label>Description:</label>
+        <textarea
+          name="description"
+          value={orgData.description || ''}
+          onChange={handleInputChange}
+        />
+      </div>
+      <button type="submit">
+        {organization_id ? 'Update Organization' : 'Add Organization'}
+      </button>
     </form>
   );
 };
 
 export default OrganizationForm;
+
+//works

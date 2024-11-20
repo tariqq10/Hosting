@@ -5,10 +5,12 @@ import { postDonation } from "../slices/charity";
 import { useDispatch } from "react-redux";
 import {setDonations} from "../slices/donationSlice"
 
-const DonationPage = () => {
+const DonationPage = ({donationRequest, onclose}) => {
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch()
+
+  const donorPhone = localStorage.getItem("donorPhone")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -18,16 +20,22 @@ const DonationPage = () => {
       return;
     }
 
+    if(!donorPhone){
+      setError("Phone number is required")
+      return;
+    }
+
     try {
       const donationData = {
         amount: parseFloat(amount),
         donation_request_id: donationRequest.donation_request_id,
+        donorPhone: donorPhone,
       }
+
       const response = await postDonation(donationData);
-      setAmount("")
-      setError("")
       alert("Donation Seccessful!")
       dispatch(setDonations(response.data.donations))
+      onclose();
     } catch (error) {
       setError("Failed to make donation, Please try again")
     }
@@ -35,16 +43,19 @@ const DonationPage = () => {
     
   return (
     <div className="donation-page">
-      <NavBar/>
-      <h2>Make a Donation</h2>
-      <input
-        type="number"
-        placeholder="Amount"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-      />
-     
-      <button type="submit" >Donate</button>
+      <NavBar />
+      <button onClick={onclose}>X</button>
+      <h2>Donate to {donationRequest}</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="number"
+          placeholder="Amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        {error && <div>{error}</div>}
+        <button type="submit">Donate</button>
+      </form>
     </div>
   );
 };

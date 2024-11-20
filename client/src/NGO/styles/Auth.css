@@ -58,6 +58,7 @@
     margin: 10px 0;
     border-radius: 5px;
     border: 1px solid #ddd;
+    color: black;
   }
   
   button {
@@ -99,5 +100,14 @@
   
   .social-btn i {
     margin-right: 10px;
+  }
+
+  select{
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    color: black;
   }
   

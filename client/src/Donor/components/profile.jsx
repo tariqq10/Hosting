@@ -1,52 +1,91 @@
 import React, { useEffect, useState } from "react";
 import "../styles/profile.css"; // Corrected path
 import NavBar from "./NavBar";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchDonations } from "../slices/donationSlice";
 
-const DonorProfile = () => {
-  const dispatch = useDispatch()
-  const {donationHistory, status, error} = useSelector((state) => state.donations)
+
+const Profile = () => {
+  const [donor, setDonor] = useState({});
+  const [donations, setDonations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
-    dispatch(fetchDonations())
-  }, [dispatch]);
+    const fetchDonorData = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/users");
+        const data = await response.json();
+        setDonor(data);
+        setName(data.name);
+        setEmail(data.email);
 
-  if (status === 'loading'){
-    return <p>Loading donation history...</p>
-  }
+        const donationsResponse = await fetch(
+          `/api/donations?user_id=${data.user_id}`
+        );
+        const donationsData = await donationsResponse.json();
+        setDonations(donationsData);
+      } catch (error) {
+        console.error("Error fetching donor data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (status === 'failed'){
-    return <p>Error: {error}</p>
-  }
+    fetchDonorData();
+  }, []);
 
-  
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    const updatedDonor = { name, email };
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/users", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedDonor),
+      });
+      if (response.ok) {
+        setDonor({ ...donor, ...updatedDonor });
+        alert("Profile updated successfully");
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  };
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="profile">
-      <div>
-        <NavBar/>
-        <h3>Your Donation History</h3>
-        {Array.isArray(donationHistory) ? donationHistory: []
-        .length === 0 ? (
-          <p>You haven't made any donations yet.</p>
-        ):(
-          <ul>
-            {Array.isArray(donationHistory) && donationHistory.map((donation) => (
-              <li key={donation.donation_id}>
-                <p>Amount: ${donation.amount}</p>
-                <p>Category: {donation.category}</p>
-                <p>Date: {new Date(donation.created_at).toLocaleDateString()}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-        
-      </div>
+      <NavBar/>
+      <h2>Donor Profile</h2>
+      <form onSubmit={handleProfileUpdate}>
+        <label>Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <button type="submit">Update Profile</button>
+      </form>
+
+      <h3>Your Donations</h3>
+      <ul>
+        {donations.map((donation) => (
+          <li key={donation.donations_id}>
+            ${donation.amount} donated on{" "}
+            {new Date(donation.created_at).toLocaleDateString()}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default DonorProfile;
-
-
+export default Profile;

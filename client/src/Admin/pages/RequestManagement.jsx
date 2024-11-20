@@ -16,7 +16,7 @@ const RequestManagement = () => {
       }
     };
     fetchRequests();
-  }, []);
+  }, []); 
 
   const handleApprove = async (id) => {
     try {

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import NavBar from "./NavBar"
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState(""); // State for selected description
-  
+
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("session"));
     if (!session) return;
@@ -13,7 +14,7 @@ const CategoriesList = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
       .then((res) => {
@@ -37,6 +38,7 @@ const CategoriesList = () => {
   return (
     <div>
       <div className="category-div">
+        <NavBar/>
         {categories.length > 0 ? (
           categories.map((category) => (
             <button
@@ -59,7 +61,14 @@ const CategoriesList = () => {
         )}
       </div>
       {selectedDescription && (
-        <div style={{ marginTop: "20px", padding: "10px", border: "1px solid #ddd", borderRadius: "5px" }}>
+        <div
+          style={{
+            marginTop: "20px",
+            padding: "10px",
+            border: "1px solid #ddd",
+            borderRadius: "5px",
+          }}
+        >
           <h4>Category Description</h4>
           <p>{selectedDescription}</p>
         </div>

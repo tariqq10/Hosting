@@ -12,7 +12,7 @@ const Dropdown = ({ label, onChange, options }) => {
         ))}
       </select>
     </div>
-  );
+  ); 
 };
 
 export default Dropdown;

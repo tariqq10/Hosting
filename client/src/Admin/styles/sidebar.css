@@ -13,26 +13,29 @@
 .sidebar ul {
   list-style-type: none;
   padding: 0;
+  
+  margin: 3px;
   display: flex;
   flex-direction: column; 
 }
 
 .sidebar li {
   margin: 20px 0;
+  width: 155px;
 }
 
 .sidebar a {
-  color: rgb(249, 249, 249);
+  color: rgb(31, 19, 140);
   text-decoration: none;
   font-size: 18px;
-  display: block;
+  display: inline-flex;
   padding: 10px 20px;
   transition: background 0.3s;
 }
 
-.sidebar a:hover {
-  background-color: #B22E37; 
-}
+ .sidebar a:hover {
+  background-color: #2a3b4c;; 
+} 
 
 .dashboard-main-content {
   margin-left: 220px; 
@@ -45,3 +48,4 @@
 .material-symbols-outlined {
   margin-right: 5px; /* Space between icon and text */
 }
+ 

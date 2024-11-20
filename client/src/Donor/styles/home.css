@@ -1,150 +1,79 @@
-/* General Home Page Layout */
+/* home.css */
+
+/* General body styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif; /* Use a clean font */
+  background-color: #ffffff; /* White background */
+  color: #333; /* Dark gray text for readability */
+}
+
+/* Home component styling */
 .home {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background-color: #f4f4f4;
+  min-height: 100vh; /* Ensure the home component takes full height */
 }
 
+/* Navigation Bar styles */
+.navbar {
+  background-color: #ff0000; /* Red background for the navbar */
+  color: #ffffff; /* White text color */
+  padding: 15px 20px; /* Padding for the navbar */
+  text-align: center; /* Center text */
+}
 
+/* Error message styling */
 .error {
-  color: red;
-  font-size: 16px;
-  margin-top: 20px;
-  text-align: center;
+  color: #ff0000; /* Red color for error messages */
+  text-align: center; /* Center the error message */
+  margin: 20px 0; /* Space around the error message */
 }
 
-/* Donation Form Section */
-.donation-form {
-  background-color: #fff;
-  padding: 20px;
-  margin: 30px 0;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-}
-
-.donation-form h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.donation-form input,
-.donation-form select,
-.donation-form button {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.donation-form input[type="number"] {
-  -moz-appearance: textfield; /* Remove number input arrows for better UI */
-}
-
-.donation-form input:focus,
-.donation-form select:focus,
-.donation-form button:focus {
-  outline: none;
-  border-color: #f1c40f;
-}
-
-.donation-form button {
-  background-color: #f1c40f;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.donation-form button:hover {
-  background-color: #e67e22;
-}
-
-/* NGO Cards Section */
+/* NGO Cards container */
 .ngo-cards {
-  width: 100%;
-  padding: 20px;
-  background-color: #fff;
-  margin-bottom: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Allow this section to grow and fill available space */
+  padding: 20px; /* Padding around the NGO cards container */
+  max-width: 1200px; /* Max width to prevent stretching on large screens */
+  margin: 0 auto; /* Center the container */
 }
 
+/* Header for NGO cards */
 .ngo-cards h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
+  text-align: center; /* Center the header */
+  color: #ff0000; /* Red color for the header */
 }
 
-.ngo-cards p {
-  text-align: center;
-  font-size: 18px;
-  color: #777;
+/* Styling for individual NGO cards */
+.ngo-card {
+  background-color: #ffffff; /* White background for each card */
+  border: 1px solid #ff0000; /* Red border for cards */
+  border-radius: 5px; /* Rounded corners */
+  padding: 15px; /* Padding inside cards */
+  margin: 10px 0; /* Space between cards */
+  transition: transform 0.3s; /* Smooth transition for hover effect */
 }
 
-.ngo-cards .ngo-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fafafa;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+/* Hover effect for NGO cards */
+.ngo-card:hover {
+  transform: scale(1.05); /* Slightly enlarge the card on hover */
 }
 
-.ngo-cards .ngo-card img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
+/* Footer styling */
+.footer {
+  background-color: #ff0000; /* Red background for the footer */
+  color: #ffffff; /* White text color */
+  text-align: center; /* Center text */
+  padding: 15px 0; /* Padding for the footer */
 }
 
-.ngo-cards .ngo-card h3 {
-  font-size: 20px;
-  margin: 5px 0;
-}
+/* Responsive styles */
+@media (max-width: 768px) {
+  .ngo-cards {
+    padding: 10px; /* Less padding on smaller screens */
+  }
 
-.ngo-cards .ngo-card p {
-  font-size: 14px;
-  color: #555;
-}
-
-.ngo-cards .ngo-card a {
-  text-decoration: none;
-  background-color: #f1c40f;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 14px;
-  margin-top: 10px;
-  display: inline-block;
-  transition: background-color 0.3s;
-}
-
-.ngo-cards .ngo-card a:hover {
-  background-color: #e67e22;
-}
-
-/* Footer */
-footer {
-  width: 100%;
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 10px 0;
-  margin-top: auto;
-}
-
-footer p {
-  font-size: 14px;
-  margin: 0;
+  .ngo-card {
+    padding: 10px; /* Less padding inside cards */
+  }
 }

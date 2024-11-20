@@ -16,13 +16,13 @@ export const fetchApprovedDonations = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/approved-donations",
+        "http://127.0.0.1:5000/approvals",
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
-      )
+      );
       return response.data.approved_donations;
     } catch (error) {
       return rejectWithValue(error.response.data.message || error.message);
@@ -32,9 +32,12 @@ export const fetchApprovedDonations = createAsyncThunk(
 
 export const fetchDonations = createAsyncThunk('donations/fetchDonations',async (thunkApi) => {
   try{
-    const response = await axios.get('/api/donations/history', {
-      headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
-    })
+    const response = await axios.get(
+      "http://127.0.0.1:5000/approvals/history",
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
     return response.data;
   } catch (error) {
     return thunkApi.rejectWithValue(error.response.data)

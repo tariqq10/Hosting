@@ -7,5 +7,5 @@ const Button = ({ label, onClick }) => {
     </button>
   );
 };
-
+ 
 export default Button;

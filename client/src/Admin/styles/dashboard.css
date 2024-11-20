@@ -1,110 +1,133 @@
-
 .dashboard-overview {
-    max-width: 1200px;
-    margin: auto;
-    padding: 40px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  }
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
 
-  .stats-cards {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-    flex-wrap: wrap; 
-  }
-  
-  @media (max-width: 768px) {
-    .stats-card {
-      flex: 1 1 100%;
-    }
-  }
-  
- 
+.stats-cards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
   .stats-card {
-    flex: 1;
-    padding: 20px;
-    background: #880E4F;
-    color: #fff;
-    text-align: center;
-    border-radius: 8px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex: 1 1 100%;
   }
-  
-  .stats-card:hover {
-    transform: scale(1.05); 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .stats-card h3 {
-    margin: 0;
-    font-size: 18px;
-  }
-  
-  .stats-card p {
-    font-size: 24px;
-    margin: 5px 0 0;
-  }
-  
+}
 
-  .category-list {
-    margin-bottom: 20px;
-  }
+.stats-card {
+  flex: 1;
+  padding: 20px;
+  background: #880E4F;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  margin-top: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stats-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.stats-card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.stats-card p {
+  font-size: 24px;
+  margin: 5px 0 0;
   
-  .category-list h3 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: #880E4F;
-  }
-  
-  .category-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .category-list li {
-    font-size: 16px;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd; 
-  }
-  
-  
-  .button {
-    padding: 10px 20px;
-    background-color: #880E4F;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-  }
-  
-  .button:hover {
-    background-color: #ad1457;
-    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.3);
-  }
-  
-  
-  .dashboard-actions {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 30px;
-  }
-  
- 
-  body {
-    background-color: #f5f5f5;
-  }
-  .admin-dashboard {
-    display: flex;
-  }
-  
-  .content {
-    margin-left: 250px;  /* Sidebar width */
-    padding: 20px;
-    width: 100%;
-  }
-  
+}
+
+.category-list {
+  margin-bottom: 20px;
+  width: 10cm;
+}
+
+.category-list h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #880E4F;
+  font-weight: bold;
+}
+
+.category-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.category-list li {
+  font-size: 16px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.category-list li:hover {
+  background-color: #f0e6f6;
+}
+
+.category-list .category-id {
+  font-weight: bold;
+  color: #880E4F;
+}
+
+.category-list .total-amount {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #880E4F;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.button:hover {
+  background-color: #ad1457;
+  box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+.admin-dashboard {
+  display: flex;
+}
+
+.content {
+  margin-left: 250px; /* Sidebar width */
+  padding: 20px;
+  width: 100%;
+}
+.org-Label{
+  font-size: 20px;
+  color: aliceblue;
+} 

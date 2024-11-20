@@ -13,7 +13,7 @@ const FilterPanel = () => {
       <Dropdown label="Date" onChange={handleFilterChange} options={['Last 7 Days', 'Last 30 Days', 'This Year']} className="form-select mb-3" />
       <Dropdown label="NGO" onChange={handleFilterChange} options={['NGO A', 'NGO B', 'NGO C']} className="form-select mb-3" />
     </div>
-  );
+  ); 
 };
 
 export default FilterPanel;

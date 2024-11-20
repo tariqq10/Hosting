@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../styles/NavBar.css";
-
 import Logout from "./logout";
 
 const NavBar = () => {
+  // Using useLocation to check current route for conditional styling if needed
+  const location = useLocation();
+
   return (
     <nav className="navbar">
       <div className="nav-links">
@@ -15,12 +17,13 @@ const NavBar = () => {
           </Link>
           </li>
           <li>
-          <Link to="/requests" className="nav-link">Donation request</Link>
+            <Link to="/donor-category" className="nav-link">
+            Category
+            </Link>
           </li>
           <li>
-          <Link to="/make-donation" className="nav-link">
-            Make a Donation
-          </Link>{" "}</li>
+          <Link to="/requests" className="nav-link">Donation request</Link>
+          </li>
           {/* Add Make a Donation link */}
           <li>
           <Link to="/donor-profile" className="nav-link">
@@ -29,7 +32,8 @@ const NavBar = () => {
           </li>
           <li><Logout/></li>
         </ul>
-      </div>
+        </div>
+        
     </nav>
   );
 };

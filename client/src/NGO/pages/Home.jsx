@@ -6,7 +6,6 @@ const Home = () => {
   const [requests, setRequests] = useState([]);
   const [statusMessage, setStatusMessage] = useState("");
 
-  // Define the container and button styles as you've done before
   const containerStyle = {
     backgroundColor: "#f8f8f8", // Light background
     fontFamily: "Arial, sans-serif", // Font family
@@ -17,7 +16,7 @@ const Home = () => {
     width: "100%", // Full width
     maxWidth: "900px", // Prevent too wide container
     margin: "0 auto", // Center the container horizontally
-    padding: "20px", // Padding for spacing
+    padding: "100px", // Padding for spacing
   };
 
   const buttonStyle = {
@@ -31,31 +30,31 @@ const Home = () => {
     maxWidth: "300px",
   };
 
-  const pendingStyle = { 
-    ...buttonStyle, 
-    backgroundColor: "transparent", 
-    border: "1px solid black", 
+  const pendingStyle = {
+    ...buttonStyle,
+    backgroundColor: "transparent",
+    border: "1px solid black",
     color: "black",
   };
 
-  const approvedStyle = { 
-    ...buttonStyle, 
-    backgroundColor: "transparent", 
-    border: "1px solid lightgreen", 
-    color: "lightgreen", 
+  const approvedStyle = {
+    ...buttonStyle,
+    backgroundColor: "transparent",
+    border: "1px solid lightgreen",
+    color: "lightgreen",
   };
 
-  const rejectedStyle = { 
-    ...buttonStyle, 
-    backgroundColor: "transparent", 
-    border: "1px solid red", 
-    color: "red", 
+  const rejectedStyle = {
+    ...buttonStyle,
+    backgroundColor: "transparent",
+    border: "1px solid red",
+    color: "red",
   };
 
-  const createRequestStyle = { 
-    ...buttonStyle, 
-    background: "linear-gradient(to right, purple, indigo)", 
-    color: "white", 
+  const createRequestStyle = {
+    ...buttonStyle,
+    background: "linear-gradient(to right, purple, indigo)",
+    color: "white",
     marginTop: "20px",
   };
 
@@ -104,13 +103,20 @@ const Home = () => {
 
   return (
     <div style={containerStyle}>
-      <Navbar/>
+      <Navbar />
       <h2 style={headerStyle}>My Requests</h2>
-      
+
       {/* Display status message */}
       {statusMessage && <p>{statusMessage}</p>}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          width: "100%",
+        }}
+      >
         {requests.map((request) => (
           <button
             key={request.id}
@@ -122,7 +128,8 @@ const Home = () => {
                 : rejectedStyle
             }
           >
-            {request.status.charAt(0).toUpperCase() + request.status.slice(1)} Request - {request.category} - ${request.amount}
+            {request.status.charAt(0).toUpperCase() + request.status.slice(1)}{" "}
+            Request - {request.category} - ${request.amount}
           </button>
         ))}
       </div>

@@ -23,4 +23,4 @@ const RequestTable = ({ requests }) => {
   );
 };
 
-export default RequestTable;
+export default RequestTable; 

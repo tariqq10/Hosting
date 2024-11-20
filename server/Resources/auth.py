@@ -4,7 +4,7 @@ from models import db, Users, Organizations, TokenBlacklist
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, get_jwt
 from flask_bcrypt import generate_password_hash, check_password_hash
 from Resources.roles import admin_required
-
+import re
 
 class UserResource(Resource):
     parser = reqparse.RequestParser()
@@ -23,6 +23,11 @@ class UserResource(Resource):
 
     def post(self):
         data = self.parser.parse_args()
+        
+        # Validate the email format
+        email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w{2,}$'
+        if not re.match(email_pattern, data['email']):
+            return {'message':'Invalid email format'}
 
         # 1. Verify phone and email uniqueness
         existing_number = Users.query.filter_by(phone=data['phone']).first()

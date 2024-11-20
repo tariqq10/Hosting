@@ -9,7 +9,7 @@ const RequestRow = ({ request }) => {
   const handleReject = () => {
     console.log(`Rejecting request for ${request.ngoName}`);
   };
-
+ 
   return (
     <tr>
       <td>{request.ngoName}</td>

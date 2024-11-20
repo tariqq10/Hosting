@@ -2,7 +2,7 @@ const CategoryItem = ({name, description, created_at}) => {
     return(
         <li>
             <div>
-                <h5>{name}</h5>
+                <button>{name}</button>
                 <p>{description}</p>
                 <p>{created_at}</p>
             </div>
@@ -10,4 +10,4 @@ const CategoryItem = ({name, description, created_at}) => {
     )
     
 }
-export default CategoryItem
+export default CategoryItem 

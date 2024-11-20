@@ -1,91 +1,97 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import AdminNavBar from '../AdminNavBar'; 
+import AdminNavBar from '../AdminNavBar';
 import OrganizationForm from './OrganizationForm';
-import '../../styles/dashboard.css'; 
+import '../../styles/dashboard.css';
 
 const OrganizationDetails = () => {
-  const { id } = useParams();
+  const { organization_id } = useParams();
   const navigate = useNavigate();
   const [organization, setOrganization] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  
   useEffect(() => {
     const fetchOrganization = async () => {
-      const token = localStorage.getItem('accessToken'); 
-      if (!token) {
-        setError('No access token found. Please log in again.');
-        setLoading(false);
+      const accessToken = localStorage.getItem('session');
+      let access = null;
+      if (accessToken) {
+        access = JSON.parse(accessToken).access_token;
+      }
+
+      if (!access) {
+        navigate('/login');
         return;
       }
 
       try {
-        const response = await axios.get(`http://127.0.0.1:5000/organizations/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        });
+        const response = await axios.get(
+          `http://127.0.0.1:5000/organizations/${organization_id}`,
+          {
+            headers: { Authorization: `Bearer ${access}` }
+          }
+        );
         setOrganization(response.data);
-      } catch (error) {
-        setError('Failed to fetch organization details.');
-        console.error('Error fetching organization:', error);
-      } finally {
         setLoading(false);
+      } catch (error) {
+        console.error('Error fetching organization:', error);
+        setError('Failed to fetch organization details');
+        setLoading(false);
+        if (error.response && error.response.status === 401) {
+          navigate('/login');
+        }
       }
     };
 
     fetchOrganization();
-  }, [id]);
+  }, [organization_id, navigate]);
 
-  
-  const handleDelete = async () => {
-    const token = localStorage.getItem('accessToken'); 
-    if (!token) {
-      alert('No access token found. Please log in again.');
+  const deleteOrganization = async () => {
+    const accessToken = localStorage.getItem('session');
+    let access = null;
+    if (accessToken) {
+      access = JSON.parse(accessToken).access_token;
+    }
+
+    if (!access) {
+      navigate('/login');
       return;
     }
 
-    const confirmDelete = window.confirm('Are you sure you want to delete this organization?');
-    if (confirmDelete) {
-      try {
-        await axios.delete(`http://127.0.0.1:5000/organizations/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        });
-        alert('Organization deleted successfully.');
-        navigate('/admin/organizations'); 
-      } catch (error) {
-        console.error('Error deleting organization:', error);
-        alert('Failed to delete organization.');
+    try {
+      await axios.delete(`http://127.0.0.1:5000/organizations/${organization_id}`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      });
+      navigate('/admin/organizations');
+    } catch (error) {
+      console.error('Error deleting organization:', error);
+      setError('Failed to delete organization. Please try again.');
+      if (error.response && error.response.status === 401) {
+        navigate('/login');
       }
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="dashboard-overview">
+    <div className="dashboard-container">
       <AdminNavBar />
-      <div className="dashboard-container">
-        <div className="dashboard-main-content">
-          <h2>Organization Details</h2>
-          <p><strong>Name:</strong> {organization.name}</p>
-          <p><strong>Contact Info:</strong> {organization.contactInfo}</p>
-          <p><strong>Address:</strong> {organization.address}</p>
-
-          
-          <OrganizationForm organization={organization} setOrganization={setOrganization} />
-
-          
-          <button onClick={handleDelete} style={{ color: 'red', marginTop: '20px' }}>
-            Delete Organization
-          </button>
-        </div>
+      <div className="dashboard-main-content">
+        {error && <div className="error-message">{error}</div>}
+        {organization && (
+          <div>
+            <h2>{organization.name}</h2>
+            <p>{organization.description}</p>
+            <button onClick={deleteOrganization}>Delete</button>
+            <OrganizationForm initialData={organization} />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logout from "../../Donor/components/logout";
 
 const Navbar = () => {
   return (
@@ -21,7 +22,7 @@ const Navbar = () => {
       >
         <li>
           <Link
-            to="/"
+            to="/ngo"
             style={{
               color: "black",
               textDecoration: "none",
@@ -67,17 +68,14 @@ const Navbar = () => {
             Profile
           </Link>
         </li>
-        <li>
-          <Link
-            to="/logout"
-            style={{
-              color: "black",
-              textDecoration: "none",
-              fontWeight: "bold",
-            }}
-          >
-            Log out
-          </Link>
+        <li
+          style={{
+            color: "black",
+            textDecoration: "none",
+            fontWeight: "bold",
+          }}
+        >
+          <Logout />
         </li>
       </ul>
     </nav>

@@ -25,17 +25,12 @@ const AdminNavBar = () => {
                         <span className="material-symbols-outlined icon_left">group</span>User Management
                     </Link>
                 </li>
-                {/* Organization Management Links */}
                 <li>
                     <Link to="/admin/organizations">
                         <span className="material-symbols-outlined icon_left">corporate_fare</span>Organization Management
                     </Link>
                 </li>
-                <li>
-                    <Link to="/admin/organizations/add">
-                        <span className="material-symbols-outlined icon_left">add_circle</span>Add Organization
-                    </Link>
-                </li>
+                
             </ul>
         </nav>
     );

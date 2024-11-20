@@ -9,4 +9,4 @@ const StatsCard = ({ label, count }) => {
   );
 };
 
-export default StatsCard;
+export default StatsCard; 

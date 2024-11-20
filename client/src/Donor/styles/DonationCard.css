@@ -1,0 +1,57 @@
+/* DonationCard.css */
+.donation-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px;
+  width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: Arial, sans-serif;
+}
+
+.donation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.donation-amount {
+  font-size: 1.8rem;
+  color: #4caf50;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.donation-card p {
+  font-size: 1rem;
+  color: #333;
+  margin: 5px 0;
+}
+
+.donation-card p:first-child {
+  margin-top: 0;
+}
+
+.donation-card p:last-child {
+  margin-bottom: 0;
+}
+
+.donation-card p span {
+  font-weight: bold;
+  color: #555;
+}
+
+@media (max-width: 600px) {
+  .donation-card {
+    width: 100%;
+    margin: 10px;
+  }
+
+  .donation-amount {
+    font-size: 1.6rem;
+  }
+
+  .donation-card p {
+    font-size: 0.9rem;
+  }
+}

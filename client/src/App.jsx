@@ -27,15 +27,21 @@ import OrganizationList from './Admin/components/OrganizationManagement/Organiza
 import DonorHome from './Donor/components/home';
 import DonationPage from './Donor/components/DonationPage';
 import DonorProfile from './Donor/components/profile';
+import Layout from "./Layout";
+//import DonorHome from './Donor/components/home';
+//import DonationPage from './Donor/components/DonationPage';
 import Requests from './Donor/components/donationRequest';
+import CategoriesList from './Donor/components/CategoryList';
 // import DonorProfile from './Donor/components/profile';
 
 const App = () => {
 
   return (
     <Router>
+      
       <div className="app">
         <canvas id="canvas" />
+        <Layout>
 
         <Routes>
           <Route path="/admin" element={<AdminDashboard />} />
@@ -58,20 +64,25 @@ const App = () => {
           
           
           <Route path="/admin/organizations" element={<OrganizationList />} />
+          <Route path="/admin/organizations/add" element={<OrganizationForm />} /> 
+          <Route path="/admin/organizations/edit/:organization_id" element={<OrganizationForm />} /> 
           <Route path="/admin/organization/details" element={<OrganizationDetails />} />
-          <Route path="/admin/organization/form" element={<OrganizationForm />} />
           <Route path="/admin/organization/item" element={<OrganizationItem />} />
-          <Route path="/admin/organizations/add" element={<OrganizationForm />} />
+
           <Route path="/logout" element={<Logout/>} />
           <Route path='/donor' element={<DonorHome/>}/>
           <Route path="/requests" element={<Requests/>}/>
+          <Route path="/category" />
           <Route path="/make-donation" element={<DonationPage/>} />
           <Route path="/donor-profile" element={<DonorProfile/>}/>
+          <Route path="donor-category" element={<CategoriesList/>}/>
           
           {/* <Route path="/donor-profile" element={<DonorProfile/>}/> */}
           {/* New route */}
         </Routes>
+        </Layout>
       </div>
+      
     </Router>
   );
 };
