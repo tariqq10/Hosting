@@ -6,7 +6,7 @@ import OrganizationForm from './OrganizationForm';
 import '../../styles/dashboard.css'; 
 
 const OrganizationDetails = () => {
-  const { id } = useParams();
+  const { organization_id } = useParams();  
   const navigate = useNavigate();
   const [organization, setOrganization] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ const OrganizationDetails = () => {
 
   useEffect(() => {
     const fetchOrganization = async () => {
-      const token = localStorage.getItem('accessToken'); 
+      const token = localStorage.getItem('access_token'); 
       if (!token) {
         setError('No access token found. Please log in again.');
         setLoading(false);
@@ -22,7 +22,7 @@ const OrganizationDetails = () => {
       }
 
       try {
-        const response = await axios.get(`http://127.0.0.1:5000/organizations/${id}`, {
+        const response = await axios.get(`http://127.0.0.1:5000/organizations/${organization_id}`, {
           headers: {
             Authorization: `Bearer ${token}`, 
           },
@@ -37,52 +37,43 @@ const OrganizationDetails = () => {
     };
 
     fetchOrganization();
-  }, [id]);
+  }, [organization_id]);
 
   const handleDelete = async () => {
-    const token = localStorage.getItem('accessToken'); 
-    if (!token) {
-      alert('No access token found. Please log in again.');
-      return;
-    }
-
-    const confirmDelete = window.confirm('Are you sure you want to delete this organization?');
-    if (confirmDelete) {
-      try {
-        await axios.delete(`http://127.0.0.1:5000/organizations/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        });
-        alert('Organization deleted successfully.');
-        navigate('/admin/organizations'); 
-      } catch (error) {
-        console.error('Error deleting organization:', error);
-        alert('Failed to delete organization.');
-      }
+    const token = localStorage.getItem('access_token'); 
+    if (!token) return;
+    try {
+      await axios.delete(`http://127.0.0.1:5000/organizations/${organization_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      });
+      navigate('/admin/organizations'); 
+    } catch (error) {
+      console.error('Error deleting organization:', error);
     }
   };
 
   if (loading) return <p>Loading...</p>;
+
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="dashboard-overview">
+    <div className="dashboard-container">
       <AdminNavBar />
-      <div className="dashboard-container">
-        <div className="dashboard-main-content">
-          <h2>Organization Details</h2>
-          <p><strong>Name:</strong> {organization.name}</p>
-          <p><strong>Contact Info:</strong> {organization.contactInfo}</p>
-          <p><strong>Address:</strong> {organization.address}</p>
-          <OrganizationForm organization={organization} setOrganization={setOrganization} />
-          <button onClick={handleDelete} style={{ color: 'red', marginTop: '20px' }}>
-            Delete Organization
-          </button>
-        </div>
+      <div className="dashboard-main-content">
+        <h2>{organization.name}</h2>
+        <p>Contact Info: {organization.contactInfo}</p>
+        <p>Address: {organization.address}</p>
+        <p>Description: {organization.description}</p> 
+        <button onClick={handleDelete}>Delete Organization</button>
+        <OrganizationForm 
+          organization={organization}
+          setOrganization={setOrganization}
+        />
       </div>
     </div>
   );
 };
 
-export default OrganizationDetails; 
+export default OrganizationDetails;

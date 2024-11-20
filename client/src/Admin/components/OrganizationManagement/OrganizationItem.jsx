@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const OrganizationItem = ({ organization, deleteOrganization, updateOrganization }) => {
@@ -7,14 +7,30 @@ const OrganizationItem = ({ organization, deleteOrganization, updateOrganization
     name: organization.name,
     contactInfo: organization.contactInfo,
     address: organization.address,
+    description: organization.description,
   });
 
+  
+  useEffect(() => {
+    setEditedData({
+      name: organization.name,
+      contactInfo: organization.contactInfo,
+      address: organization.address,
+      description: organization.description,
+    });
+  }, [organization]); 
+
   const handleDelete = () => {
-    deleteOrganization(organization.id);
+    if (!organization.organization_id) {
+      console.error('Invalid organization ID');
+      alert('Invalid organization ID. Please try again.');
+      return;
+    }
+    deleteOrganization(organization.organization_id);
   };
 
   const handleUpdate = () => {
-    updateOrganization(organization.id, editedData);
+    updateOrganization(organization.organization_id, editedData);
     setEditMode(false); 
   };
 
@@ -29,13 +45,17 @@ const OrganizationItem = ({ organization, deleteOrganization, updateOrganization
           />
           <input
             type="text"
-            value={editedData.contactInfo}
+            value={editedData.contactInfo || ''}  
             onChange={(e) => setEditedData({ ...editedData, contactInfo: e.target.value })}
           />
           <input
             type="text"
             value={editedData.address}
             onChange={(e) => setEditedData({ ...editedData, address: e.target.value })}
+          />
+          <textarea
+            value={editedData.description}
+            onChange={(e) => setEditedData({ ...editedData, description: e.target.value })}
           />
           <button onClick={handleUpdate}>Save</button>
           <button onClick={() => setEditMode(false)}>Cancel</button>
@@ -45,7 +65,8 @@ const OrganizationItem = ({ organization, deleteOrganization, updateOrganization
           <h3>{organization.name}</h3>
           <p>{organization.contactInfo}</p>
           <p>{organization.address}</p>
-          <Link to={`/admin/organizations/${organization.id}`}>View Details</Link>
+          <p>{organization.description}</p>
+          <Link to={`/admin/organizations/${organization.organization_id}`}>View Details</Link>
           <button onClick={() => setEditMode(true)}>Edit</button>
           <button onClick={handleDelete}>Delete</button>
         </div>
@@ -54,4 +75,4 @@ const OrganizationItem = ({ organization, deleteOrganization, updateOrganization
   );
 };
 
-export default OrganizationItem; 
+export default OrganizationItem;

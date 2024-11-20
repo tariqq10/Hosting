@@ -110,7 +110,7 @@ const AuthNGO = () => {
               <form onSubmit={formik.handleSubmit}>
 
 
-                <select
+                <select>
                   type="text"
                   name="role"
                   value={formik.values.role}

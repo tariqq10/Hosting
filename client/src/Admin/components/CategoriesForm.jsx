@@ -3,22 +3,23 @@ import * as Yup from "yup";
 import toast from "react-hot-toast";
 
 const CategoriesForm = () => {
-    
-    const accessToken = localStorage.getItem('access_token'); 
+    const session = JSON.parse(localStorage.getItem("session")); 
+    const accessToken = session?.access_token; // Safely retrieve token
 
     const formik = useFormik({
         validationSchema: Yup.object().shape({
             name: Yup.string().required("Name is required"),
             description: Yup.string().required("Description is required"),
-            created_at: Yup.string().required("Creation date is required")
+            created_at: Yup.string().required("Creation date is required"),
         }),
         initialValues: {
             name: "",
             description: "",
-            created_at: ""
+            created_at: "",
         },
         onSubmit: async (values, { resetForm }) => {
-            
+            console.log("Access Token:", accessToken); // Debugging
+
             if (!accessToken) {
                 toast.error("You are not logged in. Please login first.");
                 return;
@@ -29,16 +30,16 @@ const CategoriesForm = () => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${accessToken}` 
+                        "Authorization": `Bearer ${accessToken}`, 
                     },
-                    body: JSON.stringify(values)
+                    body: JSON.stringify(values),
                 });
 
                 const data = await res.json();
 
                 if (res.ok) {
                     toast.success(`Successfully added category: ${values.name}`);
-                    resetForm(); 
+                    resetForm();
                 } else {
                     toast.error(data.message || "An error occurred");
                 }
@@ -46,7 +47,7 @@ const CategoriesForm = () => {
                 toast.error("Network or server error occurred");
                 console.error("Error:", error);
             }
-        }
+        },
     });
 
     return (
@@ -80,4 +81,4 @@ const CategoriesForm = () => {
     );
 };
 
-export default CategoriesForm; 
+export default CategoriesForm;
