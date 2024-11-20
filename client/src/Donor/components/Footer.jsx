@@ -44,3 +44,45 @@ const Footer = () => {
 };
 export default Footer
 
+
+// import React from 'react';
+
+// const DonationPage = ({ donationRequest, amount, onAmountChange, onDonate, onClose }) => {
+//   if (!donationRequest) return null;  // If no donation request is selected, don't render the page
+
+//   return (
+//     <div className="donation-page">
+//       <div className="donation-modal">
+//         <h2>Donate to {donationRequest.title}</h2>
+//         <p>{donationRequest.description}</p>
+//         <p><strong>Target Amount:</strong> {donationRequest.target_amount}</p>
+
+//         {/* Donation Amount Input */}
+//         <div>
+//           <label htmlFor="donationAmount">Enter Donation Amount</label>
+//           <input
+//             type="number"
+//             id="donationAmount"
+//             value={amount}
+//             onChange={onAmountChange}
+//             placeholder="Enter amount"
+//           />
+//         </div>
+
+//         {/* Submit Button */}
+//         <div>
+//           <button onClick={onDonate}>Donate</button>
+//         </div>
+
+//         {/* Close Button */}
+//         <div>
+//           <button onClick={onClose}>Close</button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default DonationPage;
+
+

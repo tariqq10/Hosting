@@ -1,15 +1,37 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
+// import Footer from "./Footer";
 import "../styles/home.css";
+import DonationPage from "./DonationPage";
 
 
 const Requests= () => {
 
   const [selectedDonation, setSelectedDonation] = useState(null)
+  const [amount, setAmount] = useState([])
 
   const handleClick = (donationRequest) => {
     setSelectedDonation(donationRequest)
+    setAmount('')
   }
+
+    const handleAmountChange = (e) => {
+      setAmount(e.target.value); // Update the amount as user types
+    };
+
+    const handleDonateSubmit = (e) => {
+      e.preventDefault();
+      if (!amount || isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid donation amount.");
+        return;
+      }
+
+      // Here you can handle the actual donation process (e.g., API call or processing)
+      alert(`Thank you for donating ${amount} to ${selectedDonation.title}`);
+
+      // Reset the form or close the donation prompt
+      setSelectedDonation(null); // Close the donation page/modal
+    };
 const [requests, setRequests] = useState([]);
 const [error, setError] = useState(null); // State for managing errors
 
@@ -94,7 +116,18 @@ useEffect(() => {
           )}
         </tbody>
       </table>
-
+      {""}
+      <div>
+      {selectedDonation && (
+        <DonationPage
+          donationRequest={selectedDonation}
+          amount={amount}
+          onAmountChange={handleAmountChange}
+          onDonate={handleDonateSubmit}
+          onClose={() => setSelectedDonation(null)}
+        />
+      )}
+      </div>
     </div>
   );
 };
