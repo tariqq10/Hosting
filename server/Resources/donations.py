@@ -103,12 +103,12 @@ class DonationResource(Resource):
             return {"message": "Donor's phone number not found. Please update your profile with a valid phone number"}, 400
         phone = user.phone
         
-        #fetch the NGO's phone number through the organization model
-        organization_id = donation_request.organization_id
-        ngo_user = Users.query.filter_by(organization_id=organization_id).first()
-        if ngo_user is None or not ngo_user.phone:
-            return {"message": "NGO's phone number nor found.Please contact the organization for support"}, 400
-        ngo_phone = ngo_user.phone
+        # #fetch the NGO's phone number through the organization model
+        # organization_id = donation_request.organization_id
+        # ngo_user = Users.query.filter_by(organization_id=organization_id).first()
+        # if ngo_user is None or not ngo_user.phone:
+        #     return {"message": "NGO's phone number nor found.Please contact the organization for support"}, 400
+        # ngo_phone = ngo_user.phone
 
         # Create the new donation entry
         donation = Donations(

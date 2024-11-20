@@ -7,19 +7,19 @@ const DonationHistory = () => {
 
   useEffect(() => {
     axios
-      .get("/requests", {
+      .get("http://127.0.0.1:5000/requests", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
-        console.log('API response:', res.data)
+        console.log("API response:", res.data);
         setRequests(res.data);
       })
       .catch((error) => {
-        console.error('Error fetching donation History', error)
-        setRequests([])
-      })
+        console.error("Error fetching donation History", error);
+        setRequests([]);
+      });
   }, []);
   return (
     <div>
