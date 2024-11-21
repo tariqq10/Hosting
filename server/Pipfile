@@ -17,6 +17,7 @@ bcrypt = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
 requests = "*"
+gunicorn = "*"
 
 [dev-packages]
 
