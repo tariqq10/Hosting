@@ -61,6 +61,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/admin/users" element={<Users />} />
+          <Route path='/admin-requests' element={<DonationRequest/>}/>
           
           
           <Route path="/admin/organizations" element={<OrganizationList />} />

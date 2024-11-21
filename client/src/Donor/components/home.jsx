@@ -13,6 +13,9 @@ const Home = () => {
       {/* Introduction Section */}
       <section className="intro">
         <h1>Welcome to Our Charity Organization</h1>
+
+        <h1>Welcome to Our Charity Organization</h1>
+
         <p>
           We are committed to supporting various causes that help improve the
           lives of individuals in need. Join us in making the world a better

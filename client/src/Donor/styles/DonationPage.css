@@ -6,7 +6,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 10vh;
   background-color: #f4f4f9;
   padding: 20px;
 }
@@ -17,7 +16,6 @@
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 100%;
   max-width: 500px;
 }
 

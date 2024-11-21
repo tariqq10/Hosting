@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import { postDonation } from "../slices/charity";
 import { useDispatch } from "react-redux";
 import {setDonations} from "../slices/donationSlice"
+import {toast} from "react-hot-toast"
 
 const DonationPage = ({donationRequest, onClose, onDonate}) => {
   const [amount, setAmount] = useState("");
@@ -27,7 +28,7 @@ const DonationPage = ({donationRequest, onClose, onDonate}) => {
     const num = parseFloat(amount)
 
     if (isNaN(num) || amount <= 0) {
-      setError("Please enter a valid donation amount.");
+      toast.success("Please enter a valid donation amount.");
       return;
     }
 
@@ -83,7 +84,7 @@ const DonationPage = ({donationRequest, onClose, onDonate}) => {
             type="number"
             id="donationAmount"
             value={amount}
-            onChange={onAmountChange}
+            onChange={handleSubmit}
             placeholder="Enter amount"
           />
         </div>

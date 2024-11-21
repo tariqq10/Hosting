@@ -1,22 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import Navbar from "../components/Navbar"
 
-function Profile() {
-  const [profileData, setProfileData] = useState({
-    name: '',
-    registrationNumber: '',
-    address: '',
-    phone: '',
-    email: '',
-    missionDescription: '',
-  });
-  const [isEditing, setIsEditing] = useState(false);
-  const [passwordData, setPasswordData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmNewPassword: '',
-  });
-  const [file, setFile] = useState(null);
 
   useEffect(() => {
     axios.get('/api/ngos/profile')
@@ -88,33 +74,32 @@ axios.post('/api/ngos/upload-doc', formData)
   };
 
   return (
-    <div className="profile-container">
-      <h2>NGO Profile</h2>
-      <form>
-        <div className="form-group">
-          <label>NGO Name:</label>
-          <input type="text" name="name" value={profileData.name} onChange={handleInputChange} disabled={!isEditing} />
-        </div>
-        <div className="form-group">
-          <label>Registration Number:</label>
-          <input type="text" name="registrationNumber" value={profileData.registrationNumber} onChange={handleInputChange} disabled={!isEditing} />
-        </div>
-        <div className="form-group">
-          <label>Address:</label>
-          <input type="text" name="address" value={profileData.address} onChange={handleInputChange} disabled={!isEditing} />
-        </div>
-        <div className="form-group">
-          <label>Phone Number:</label>
-          <input type="text" name="phone" value={profileData.phone} onChange={handleInputChange} disabled={!isEditing} />
-        </div>
-        <div className="form-group">
-          <label>Email:</label>
-          <input type="email" name="email" value={profileData.email} onChange={handleInputChange} disabled={!isEditing} />
-        </div>
-        <div className="form-group">
-          <label>Mission Description:</label>
-          <textarea name="missionDescription" value={profileData.missionDescription} onChange={handleInputChange} disabled={!isEditing} />
-        </div>
+    <div>
+      <Navbar />
+      {profile && (
+        <div>
+          <h2>Organization Details</h2>
+          <p>
+            <strong>Organization Name:</strong> {profile.organization_name}
+          </p>
+          <h2>Organization Details</h2>
+          <p>
+            <strong>Organization Name:</strong> {profile.organization_name}
+          </p>
+          <p>
+            <strong>Organization Description:</strong>{" "}
+            {profile.organization_description}
+          </p>
+
+          <p>
+            <strong>Email:</strong> {profile.email}
+          </p>
+          <p>
+            <strong>Organization Address:</strong>{" "}
+            {profile.organization_address}
+          </p>
+          <h4>Contact Person</h4>
+
 
     {isEditing ? (
       <button type="button" onClick={handleSaveChanges}>Save Changes</button>
