@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DefaultDashboard from "./DefaultDashboard";
 import {toast} from 'react-hot-toast'
+import "../styles/FindDonations.css"
 
-const Requests = () => {
+const FindDonations = () => {
   const [selectedDonation, setSelectedDonation] = useState(null);
 
   const handleClick = (donationRequest) => {
@@ -101,4 +102,4 @@ const Requests = () => {
   );
 };
 
-export default Requests;
+export default FindDonations;

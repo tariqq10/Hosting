@@ -1,99 +1,63 @@
-import React, { useEffect, useState } from "react";
-import NavBar from "./NavBar";
-import Footer from "./Footer";
-import NgoCard from "./NgoCard"; // Assuming NgoCard is already styled
+import React from "react";
 import "../styles/home.css";
+import Footer from "./Footer";
+import { Link } from "react-router-dom";
+
+
+import NavBar from "./NavBar";
 
 const Home = () => {
-  const [ngos, setNgos] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [loadingNgos, setLoadingNgos] = useState(true);
-  const [loadingCategories, setLoadingCategories] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-
-  // Fetching categories from the backend
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch("/categories/<int:id>");
-        const data = await response.json();
-        setCategories(data); // Assuming this is an array of categories
-      } catch (error) {
-        setErrorMessage("Error fetching categories");
-      } finally {
-        setLoadingCategories(false);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  // Fetching NGOs from the backend
-  useEffect(() => {
-    const fetchNgos = async () => {
-      try {
-        const response = await fetch("/approved");
-        const data = await response.json();
-
-        // Only show NGOs with approved status
-        const approvedNgos = data.filter((ngo) => ngo.status === "approved");
-
-        // Sort NGOs by category_id (if we want to sort by category_id)
-        const sortedNgos = approvedNgos.sort(
-          (a, b) => a.category_id - b.category_id
-        );
-
-        setNgos(sortedNgos);
-      } catch (error) {
-        setErrorMessage("Error fetching NGOs");
-      } finally {
-        setLoadingNgos(false);
-      }
-    };
-
-    fetchNgos();
-  }, []);
-
-  // Helper function to get category name by id
-  const getCategoryName = (categoryId) => {
-    const category = categories.find((cat) => cat.category_id === categoryId);
-    return category ? category.name : "Unknown Category";
-  };
-
   return (
     <div className="home">
-      <NavBar isHome={true} />
-      {errorMessage && <p className="error">{errorMessage}</p>}
+      <NavBar />
+      {/* Introduction Section */}
+      <section className="intro">
+        <h1>Welcome to Our Charity Organization</h1>
+        <p>
+          We are committed to supporting various causes that help improve the
+          lives of individuals in need. Join us in making the world a better
+          place by supporting our partner NGOs.
+        </p>
+      </section>
 
-      {/* NGO Cards */}
-      <div className="ngo-cards">
-        <h2>Our Approved NGOs</h2>
-        <div className="home">
-          {/* {/ Introduction Section /} */}
-          <section className="intro">
-            <h1>Welcome to Our Charity Organization</h1>
-            <p>
-              We are committed to supporting various causes that help improve
-              the lives of individuals in need. Join us in making the world a
-              better place by supporting our partner NGOs.
-            </p>
-          </section>
+      {/* What We've Done and How We've Helped */}
+      <section className="impact">
+        <h2>Our Impact</h2>
+        <p>
+          Over the years, our organization has worked tirelessly to create
+          positive change in the communities we serve. Through partnerships with
+          various NGOs, we have been able to provide essential resources,
+          support, and financial aid to those in need.
+        </p>
+        <p>
+          <strong>Here's how we've helped:</strong>
+        </p>
+        <ul>
+          <li>Provided over $1 million in financial aid to NGOs in need.</li>
+          <li>
+            Supported over 200 community projects across multiple regions.
+          </li>
+          <li>
+            Delivered food, medical supplies, and education materials to
+            thousands of families.
+          </li>
+          <li>
+            Enabled sustainable development initiatives that continue to benefit
+            local communities.
+          </li>
+        </ul>
+        <div>
+          <h3>You can donate here:</h3>
+          <Link to="/requests" className="support-charities-button">
+            Donate
+          </Link>
         </div>
-        {loadingNgos || loadingCategories ? (
-          <p>Loading...</p>
-        ) : ngos.length > 0 ? (
-          ngos.map((ngo) => (
-            <NgoCard
-              key={ngo.ngo_id}
-              ngo={{ ...ngo, category_name: getCategoryName(ngo.category_id) }}
-            />
-          ))
-        ) : (
-          <p>No approved NGOs available.</p>
-        )}
-      </div>
-
-      {/* Footer */}
+        <p>
+          We are proud of the difference we've made, but there is still much
+          more to do. With your support, we can continue to improve lives and
+          bring hope to those in need.
+        </p>
+      </section>
       <Footer />
     </div>
   );
