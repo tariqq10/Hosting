@@ -13,7 +13,7 @@ const Requests = () => {
   const access = localStorage.getItem("session");
   const token = access ? JSON.parse(access).access_token : null;
 
-  // Ref for donation form to scroll to it
+  // Ref for donation form to scroll to it automatically
   const donationFormRef = useRef(null);
 
   useEffect(() => {
