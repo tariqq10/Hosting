@@ -39,13 +39,34 @@
   transform: rotateY(180deg); 
 }
 
-h2 {
+#login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#login-card-wrap {
+  width: 100%;
+}
+
+#login-card-front {
+  width: 100%;
+}
+
+#login-heading {
   text-align: center;
-  margin-bottom:20px;
+  margin-bottom: 20px;
   font-size: 24px;
 }
 
-.input {
+#login-form .form-group {
+  margin-bottom: 15px;
+}
+
+#email-input,
+#password-input {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
@@ -53,13 +74,12 @@ h2 {
   border-radius: 5px;
 }
 
-input:focus, button:focus{
+#email-input:focus, #password-input:focus, #submit-btn:focus {
   outline: none;
   border-color: #4CAF50;
-
 }
 
-button {
+#submit-btn {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
@@ -69,17 +89,17 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+#submit-btn:hover {
   background-color: #45a049;
 }
 
-p {
+#signup-link {
   text-align: center;
   color: grey;
   cursor: pointer;
 }
 
-p:hover {
+#signup-link:hover {
   text-decoration: underline;
 }
 
