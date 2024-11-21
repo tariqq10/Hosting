@@ -64,7 +64,7 @@ const HomePage = () => {
             <Link to="/find-donations" className="find-donations-button">
               Find Donations
             </Link>
-            <Link to="/support-charities" className="support-charities-button">
+            <Link to="/register" className="support-charities-button">
               Support Charities
             </Link>
           </div>
