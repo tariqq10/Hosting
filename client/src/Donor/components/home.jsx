@@ -68,6 +68,17 @@ const Home = () => {
       {/* NGO Cards */}
       <div className="ngo-cards">
         <h2>Our Approved NGOs</h2>
+        <div className="home">
+          {/* {/ Introduction Section /} */}
+          <section className="intro">
+            <h1>Welcome to Our Charity Organization</h1>
+            <p>
+              We are committed to supporting various causes that help improve
+              the lives of individuals in need. Join us in making the world a
+              better place by supporting our partner NGOs.
+            </p>
+          </section>
+        </div>
         {loadingNgos || loadingCategories ? (
           <p>Loading...</p>
         ) : ngos.length > 0 ? (
@@ -88,4 +99,4 @@ const Home = () => {
   );
 };
 
-export default Home;z
+export default Home;

@@ -16,7 +16,7 @@ const DonationHistory = () => {
       .get(`http://127.0.0.1:5000/requests/${ngoId?.user?.user_id}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${JSON.parse(access).access_token}`,
+          "Authorization": `Bearer ${JSON.parse(access).access_token}`,
         },
       })
       .then((res) => {

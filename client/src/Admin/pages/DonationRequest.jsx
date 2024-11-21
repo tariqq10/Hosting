@@ -9,7 +9,7 @@ const DonationRequest = () => {
 
 // Retrieve the access token from local storage
 const accessToken = localStorage.getItem('session');
-let access = JSON.parse(accessToken).access_token;
+// let access = JSON.parse(accessToken).access_token;
 
 
   const access = localStorage.getItem("session");
