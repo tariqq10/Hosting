@@ -1,23 +1,31 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 10%;
+   
+  background-color: whitesmoke; 
 }
 
+/* Styling for Logo (Vite and React logos) */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #652f2f);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* Animation for Logo (Keep if you want spinning logo effect) */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -26,17 +34,67 @@
     transform: rotate(360deg);
   }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.app {
+  position: relative;
+  z-index: 1;
+  color: rgb(35, 4, 4);
+  font-family: Arial, sans-serif;
 }
 
-.card {
-  padding: 2em;
+input{
+  background-color: white;
+  color: black;
+}
+nav ul {
+  display: flex;
+  flex-direction: row; /* Horizontal by default */
+  align-items: center;/* Align links to the left */
+  padding: 0;
+  margin-bottom: 0px;
+  background-color: white;
+  height: 100px;
+}
+
+.nav li {
+  margin: 0 20px;
+}
+
+/* Styling for Donor Stats */
+.statistics {
+  margin-bottom: 2rem;
+}
+
+.statistics h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.statistics p {
+  font-size: 1.2rem;
+  color: #555;
+nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+  transition: background-color 0.3s;
+  
+}
+}
+.nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.statistics button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .read-the-docs {
-  color: #888;
+  color: #898989;
 }

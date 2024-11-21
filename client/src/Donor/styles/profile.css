@@ -1,0 +1,86 @@
+/* Profile container styling */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Heading styles */
+.profile h2 {
+  color: #ff0000;
+  margin-bottom: 20px;
+  font-size: 28px;
+  text-align: center;
+}
+
+.profile h3 {
+  color: #ff0000;
+  margin-top: 30px;
+  font-size: 22px;
+  text-align: center;
+}
+
+/* Profile details section (name and email) */
+.profile-details {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-details p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.profile-details strong {
+  color: #333;
+}
+
+/* Donation history section styling */
+.profile ul {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  max-width: 500px;
+}
+
+.profile li {
+  padding: 12px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile li strong {
+  color: #ff0000;
+}
+
+.profile li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .profile {
+    padding: 15px;
+  }
+
+  .profile h2 {
+    font-size: 24px;
+  }
+
+  .profile ul {
+    max-width: 90%;
+  }
+
+  .profile li {
+    font-size: 14px;
+  }
+}

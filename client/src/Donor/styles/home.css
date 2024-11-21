@@ -1,0 +1,231 @@
+/* Main page styling / */
+.home-page {
+display: flex;
+flex-direction: column;
+padding: 20px;
+}
+.welcome-section {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background-color: #772222;
+border-radius: 10px;
+padding: 40px;
+}
+.left-content {
+flex: 1.5;
+padding: 20px;
+color: #f8f9fa;
+background-color: rgba(0, 0, 0, 0.85);
+border-radius: 10px;
+margin-right: 20px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+/* / Button styling / */
+.find-donations-button,
+.support-charities-button {
+padding: 10px 20px;
+background-color: #772222;
+color: #fff;
+border: none;
+border-radius: 5px;
+font-size: 1rem;
+text-decoration: none;
+text-align: center;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+.find-donations-button:hover,
+.support-charities-button:hover {
+background-color: #0e0d0d; 
+}
+.image-content {
+flex: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.image-content img {
+max-width: 100%;
+height: auto;
+border-radius: 10px;
+}
+/* / Projects Section / */
+.projects-section {
+margin-top: 40px;
+}
+.projects-section-header {
+text-align: center;
+margin-bottom: 20px;
+color: #ffffff;
+}
+.project-cards {
+display: flex;
+justify-content: center;
+gap: 20px;
+}
+/* / Project Card Styling / */
+.project-card {
+width: 280px;
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+background-color: #333333;
+color: #e0e0e0;
+display: flex;
+flex-direction: column;
+}
+.project-card-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.project-name {
+font-size: 18px;
+font-weight: bold;
+}
+.time-left {
+font-size: 14px;
+color: #646cff;
+}
+.project-description {
+font-size: 14px;
+margin-top: 10px;
+color: #d0d0d0;
+}
+.project-card-footer {
+margin-top: 15px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.participants {
+display: flex;
+gap: 5px;
+align-items: center;
+}
+.participant-image {
+width: 30px;
+height: 30px;
+border-radius: 50%;
+object-fit: cover;
+}
+.add-participant {
+background-color: #646cff;
+color: #fff;
+border: none;
+padding: 5px;
+border-radius: 50%;
+cursor: pointer;
+font-size: 16px;
+}
+.add-participant:hover {
+background-color: #535bf2;
+}
+.days-left {
+font-size: 12px;
+color: #d0d0d0;
+}
+/* / Increase Ways to Contribute Section / */
+.increase-section {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 40px 20px;
+}
+.increase-left {
+flex: 1.5;
+padding-right: 20px;
+color: #f0f0f0;
+background-color: rgba(0, 0, 0, 0.85); 
+border-radius: 10px;
+}
+.increase-left h2 {
+font-size: 24px;
+font-weight: bold;
+margin-bottom: 10px;
+}
+.increase-left p {
+font-size: 16px;
+}
+.increase-right {
+flex: 1; 
+}
+.increase-right img {
+width: 100%;
+height: auto;
+border-radius: 8px;
+}
+/* / Support Charities Now Section / */
+.support-charities-now {
+display: flex;
+justify-content: space-between;
+padding: 40px;
+background-color: rgba(0, 0, 0, 0.2);
+border-radius: 10px;
+margin: 40px 0;
+}
+.support-charities-now .left-content {
+flex: 1.5;
+padding: 20px;
+color: #ffffff;
+background-color: rgba(0, 0, 0, 0.85); 
+border-radius: 10px;
+}
+.support-charities-now blockquote {
+font-size: 18px;
+font-style: italic;
+margin-bottom: 20px;
+color: #d0d0d0;
+}
+.support-charities-now .image-content {
+flex: 1;
+}
+.support-charities-now .image-content img {
+width: 100%;
+border-radius: 10px;
+}
+/* / Navigation Styles / */
+.donation-management-nav {
+background-color: #1f1f1f;
+padding: 1rem;
+border-bottom: 1px solid #333;
+}
+.donation-management-nav ul {
+list-style: none;
+display: flex;
+gap: 15px;
+padding: 0;
+margin: 0;
+}
+.donation-management-nav a {
+color: #646cff;
+text-decoration: none;
+font-weight: 500;
+}
+.donation-management-nav a:hover {
+text-decoration: underline;
+}
+/* / Responsive Design / */
+@media (max-width: 768px) {
+.welcome-section,
+.increase-section,
+.support-charities-now {
+flex-direction: column;
+padding: 20px;
+}
+.left-content {
+margin-right: 0;
+margin-bottom: 20px;
+}
+.project-card {
+width: 100%;
+}
+.donation-management-nav ul {
+flex-direction: column;
+gap: 10px;
+}
+}

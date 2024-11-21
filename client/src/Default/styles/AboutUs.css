@@ -1,0 +1,368 @@
+/* Main About Us Section */
+.about-us {
+    padding: 100px;
+    background-color: #f4f6f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .about-us h1 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Paragraph Styling */
+  .about-us p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  /* About Us Details Section */
+  .about-us-details {
+    margin-bottom: 40px;
+  }
+  
+  .about-us-details h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .about-us-details h2 i {
+    margin-right: 10px;
+    font-size: 24px;
+    color: #1e90ff;
+  }
+  
+  .about-us-details p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    text-align: center;
+  }
+  
+  /* Contact Us Section */
+  .contact-us {
+    margin-top: 40px;
+  }
+  
+  .contact-us h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .contact-us h2 i {
+    margin-right: 10px;
+    font-size: 24px;
+    color: #28a745;
+  }
+  
+  .contact-us p {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  /* Social Media Links */
+  .social-media {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .social-media a {
+    font-size: 20px;
+    color: #555;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .social-media a:hover {
+    color: #fff;
+    transform: scale(1.1);
+  }
+  
+  .social-media a i {
+    margin-right: 10px;
+  }
+  
+  /* Social Media Icon Colors */
+  .social-media .facebook {
+    background-color: #1877f2;
+    padding: 10px;
+    border-radius: 50%;
+  }
+  
+  .social-media .twitter {
+    background-color: #1da1f2;
+    padding: 10px;
+    border-radius: 50%;
+  }
+  
+  .social-media .instagram {
+    background-color: #e4405f;
+    padding: 10px;
+    border-radius: 50%;
+  }
+  
+  .social-media .email {
+    background-color: #28a745;
+    padding: 10px;
+    border-radius: 50%;
+  }
+  
+  /* Hover Effects for Each Icon */
+  .social-media .facebook:hover {
+    background-color: #0a66c2;
+  }
+  
+  .social-media .twitter:hover {
+    background-color: #1a91da;
+  }
+  
+  .social-media .instagram:hover {
+    background-color: #e0245e;
+  }
+  
+  .social-media .email:hover {
+    background-color: #218838;
+  }
+  
+  /* Tooltip Styling */
+  .wrapper .icon {
+    position: relative;
+    background: #fff;
+    border-radius: 50%;
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .wrapper .tooltip {
+    position: absolute;
+    top: 0;
+    font-size: 14px;
+    background: #fff;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 5px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .wrapper .tooltip::before {
+    position: absolute;
+    content: "";
+    height: 8px;
+    width: 8px;
+    background: #fff;
+    bottom: -3px;
+    left: 50%;
+    transform: translate(-50%) rotate(45deg);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .wrapper .icon:hover .tooltip {
+    top: -45px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  
+  .wrapper .icon:hover span,
+  .wrapper .icon:hover .tooltip {
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+  }
+  
+  .wrapper .facebook:hover,
+  .wrapper .facebook:hover .tooltip,
+  .wrapper .facebook:hover .tooltip::before {
+    background: #1877f2;
+    color: #fff;
+  }
+  
+  .wrapper .twitter:hover,
+  .wrapper .twitter:hover .tooltip,
+  .wrapper .twitter:hover .tooltip::before {
+    background: #1da1f2;
+    color: #fff;
+  }
+  
+  .wrapper .instagram:hover,
+  .wrapper .instagram:hover .tooltip,
+  .wrapper .instagram:hover .tooltip::before {
+    background: #e4405f;
+    color: #fff;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .about-us {
+      padding: 20px;
+    }
+  
+    .about-us h1 {
+      font-size: 28px;
+    }
+  
+    .about-us p,
+    .about-us-details p,
+    .contact-us p {
+      font-size: 16px;
+    }
+  
+    .social-media {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .social-media a {
+      font-size: 18px;
+    }
+  }
+  
+  /* New About Us Sections Styling */
+  .about-us .about-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 250px; /* Set a smaller max width for images */
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .about-us .about-image {
+    width: 400px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+  }
+  
+  .about-us .about-image-container:hover .about-image {
+    opacity: 0.9; /* Image brightens on hover */
+  }
+  
+  .about-us .image-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 30px; /* Smaller font size for text */
+    font-weight: bold;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .about-us .about-image-container:hover .image-text {
+    background-color: rgba(0, 0, 0, 0.7); /* Darker text background */
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  
+  /* Section Titles */
+  .about-us h2 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Read More Button */
+  button {
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  /* Styling for Read More Paragraphs */
+  .about-us .about-image + p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  .about-us .about-image + p + button {
+    margin-top: 10px;
+  }
+  
+  /* Section Margins for each Heading */
+  .about-us h2,
+  .about-us .contact-us h2 {
+    margin-top: 30px;
+  }
+  
+  /* Hover Effect for Read More Button */
+  button:hover {
+    background-color: #004db3;
+    transform: translateY(-2px);
+  }
+  
+  /* Styling for Content for Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .about-us h1 {
+      font-size: 26px;
+    }
+  
+    .about-us p {
+      font-size: 14px;
+    }
+  
+    .about-us h2 {
+      font-size: 24px;
+    }
+  
+    button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  
+    .about-us-details,
+    .contact-us {
+      padding: 20px;
+    }
+  }
+  

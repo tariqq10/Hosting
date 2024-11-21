@@ -1,0 +1,160 @@
+/* Container Styling */
+#donation-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Title Styling */
+#requests-title {
+    font-size: 2em; /* Slightly larger title */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Error Message Styling */
+#error-message {
+    color: #dc3545;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Scrollable Table Wrapper */
+#table-container {
+    width: 90%; /* Adjust table container to fit within screen */
+    max-width: 1200px; /* Maximum width for larger screens */
+    height: auto; /* Auto height based on content */
+    overflow-x: auto; /* Allow horizontal scrolling if necessary */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin: 0 auto; /* Center the table horizontally */
+    padding: 20px 0; /* Add padding on top and bottom */
+}
+
+/* Table Styling */
+#requests-table {
+    width: 100%; 
+    border-collapse: collapse;
+    table-layout: fixed; 
+    background-color: #fff;
+}
+
+#table-header {
+    background-color: #333;
+    color: white;
+}
+
+#requests-table th, #requests-table td {
+    padding: 14px; 
+    font-size: 1em; 
+    text-align: left;
+    border: 1px solid #ddd;
+    word-wrap: break-word; 
+}
+
+#requests-table th {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+#requests-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#requests-table tr:hover {
+    background-color: #eaeaea;
+}
+
+#requests-table td {
+    color: #333;
+}
+
+/* Action Buttons */
+#requests-table button {
+    padding: 10px 15px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#requests-table button:hover {
+    transform: scale(1.05);
+}
+
+#requests-table .btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+#requests-table .btn-success:hover {
+    background-color: #218838;
+}
+
+#requests-table .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+#requests-table .btn-danger:hover {
+    background-color: #c82333;
+}
+
+
+#no-requests-message {
+    color: #666;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #donation-content {
+        padding: 10px;
+    }
+
+    #requests-title {
+        font-size: 1.5em;
+    }
+
+    #table-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #requests-table th, #requests-table td {
+        font-size: 0.9em;
+        padding: 10px;
+    }
+
+    #requests-table button {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    #requests-title {
+        font-size: 1.2em;
+    }
+
+    #requests-table th, #requests-table td {
+        font-size: 0.8em;
+        padding: 8px;
+    }
+
+    #requests-table button {
+        padding: 6px 8px;
+        font-size: 0.8em;
+    }
+}

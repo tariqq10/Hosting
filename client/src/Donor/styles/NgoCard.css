@@ -1,0 +1,75 @@
+/* NGO Card Container */
+.ngo-card {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.ngo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.ngo-card h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: bold;
+}
+
+.ngo-card p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.ngo-card p.total-donations {
+  font-size: 18px;
+  color: #f39c12;
+  font-weight: bold;
+}
+
+/* Button Styling */
+.ngo-card button {
+  background-color: #f1c40f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin-top: 15px;
+}
+
+.ngo-card button:hover {
+  background-color: #e67e22; /* Darker color when hovering */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .ngo-card {
+    padding: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  .ngo-card h3 {
+    font-size: 20px;
+  }
+
+  .ngo-card p {
+    font-size: 14px;
+  }
+
+  .ngo-card button {
+    width: 100%;
+  }
+}
