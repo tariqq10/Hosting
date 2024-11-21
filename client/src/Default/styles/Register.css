@@ -1,10 +1,10 @@
-	
 .auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 70vh;
     background-color: #f0f0f0;
+    padding: 10px;
   }
 
   .card-3d-wrap {
@@ -50,21 +50,13 @@
   h4 {
     font-size: 24px;
     margin-bottom: 20px;
-    color: #333;
+    color: #030303 ;
   }
 
-  input {
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    color: black;
-  }
 
   button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #772222 ;
     color: white;
     border: none;
     border-radius: 5px;
@@ -72,7 +64,7 @@
   }
 
   button:hover {
-    background-color: #0056b3;
+    background-color: #486f99;
   }
 
   p {
@@ -104,7 +96,7 @@
   }
 
   select{
-    width: 80%;
+    width: 100%;
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
