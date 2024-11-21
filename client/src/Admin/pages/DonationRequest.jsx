@@ -21,7 +21,7 @@ const DonationRequest = () => {
 
     const fetchRequests = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/requests', {
+        const response = await fetch('${import.meta.env.VITE_SERVER_URL}/requests', {
           headers: {
             'Authorization': `Bearer ${access}`,
           },
@@ -43,7 +43,7 @@ const DonationRequest = () => {
 
  const handleApprove = async (id) => {
   try {
-    const response = await fetch(`http://127.0.0.1:5000/approvals/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/approvals/${id}`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${access}`,
@@ -68,7 +68,7 @@ const DonationRequest = () => {
 
   const handleReject = async (id) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/approvals/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/approvals/${id}`, {
         method: 'PATCH',
         headers: {
           'Authorization': `Bearer ${access}`,

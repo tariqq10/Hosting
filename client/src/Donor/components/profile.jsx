@@ -13,7 +13,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchDonorData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/users");
+        const response = await fetch("${import.meta.env.VITE_SERVER_URL}/users");
         const data = await response.json();
         setDonor(data);
         setName(data.name);
@@ -39,7 +39,7 @@ const Profile = () => {
     const updatedDonor = { name, email };
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/users", {
+      const response = await fetch("${import.meta.env.VITE_SERVER_URL}/users", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedDonor),
