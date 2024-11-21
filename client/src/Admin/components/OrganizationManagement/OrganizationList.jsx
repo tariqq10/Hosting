@@ -107,6 +107,7 @@ const OrganizationList = () => {
     <div className="dashboard-container">
       <AdminNavBar />
       <div className="dashboard-main-content">
+        <h1 id="organization-management-heading">Organization Management</h1> 
         {organizations.map((organization) => (
           <OrganizationItem
             key={organization.organization_id}

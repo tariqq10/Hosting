@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Modal from "./modal";  // lowercase 'm' if the file is named 'modal.jsx'
+  // Import the Modal component
 
 const OrganizationItem = ({ organization, deleteOrganization, updateOrganization }) => {
   const [editMode, setEditMode] = useState(false);
@@ -9,6 +10,7 @@ const OrganizationItem = ({ organization, deleteOrganization, updateOrganization
     address: organization.address || '',
     description: organization.description || '',
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);  // State for modal visibility
 
   useEffect(() => {
     setEditedData({
@@ -32,7 +34,6 @@ const OrganizationItem = ({ organization, deleteOrganization, updateOrganization
   };
 
   const handleUpdate = () => {
-    // Basic validation
     if (!editedData.name.trim()) {
       alert('Organization name is required');
       return;
@@ -40,6 +41,14 @@ const OrganizationItem = ({ organization, deleteOrganization, updateOrganization
 
     updateOrganization(organization.organization_id, editedData);
     setEditMode(false);
+  };
+
+  const handleViewDetails = () => {
+    setIsModalOpen(true);  // Open the modal
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);  // Close the modal
   };
 
   return (
@@ -79,11 +88,14 @@ const OrganizationItem = ({ organization, deleteOrganization, updateOrganization
           <p>{organization.contactInfo}</p>
           <p>{organization.address}</p>
           <p>{organization.description}</p>
-          <Link to={`/admin/organizations/${organization.organization_id}`}>View Details</Link>
-          <button onClick={() => setEditMode(true)}>Edit</button>
-          <button onClick={handleDelete}>Delete</button>
+          <button id='orgDel-btn' onClick={handleViewDetails}>View Details</button> 
+          <button id='orgDel-btn' onClick={() => setEditMode(true)}>Edit</button>
+          <button id='orgDel-btn' onClick={handleDelete}>Delete</button>
         </div>
       )}
+
+      
+      <Modal isOpen={isModalOpen} onClose={closeModal} organization={organization} />
     </div>
   );
 };

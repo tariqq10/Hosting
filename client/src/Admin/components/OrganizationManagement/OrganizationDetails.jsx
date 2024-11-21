@@ -84,6 +84,7 @@ const OrganizationDetails = () => {
       <AdminNavBar />
       <div className="dashboard-main-content">
         {error && <div className="error-message">{error}</div>}
+        <h1 id="organization-management-heading">Organization Management</h1> 
         {organization && (
           <div>
             <h2>{organization.name}</h2>

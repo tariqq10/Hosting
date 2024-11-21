@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 const CategoriesForm = () => {
     const session = JSON.parse(localStorage.getItem("session")); 
-    const accessToken = session?.access_token; // Safely retrieve token
+    const accessToken = session?.access_token; 
 
     const formik = useFormik({
         validationSchema: Yup.object().shape({
@@ -18,7 +18,7 @@ const CategoriesForm = () => {
             created_at: "",
         },
         onSubmit: async (values, { resetForm }) => {
-            console.log("Access Token:", accessToken); // Debugging
+            console.log("Access Token:", accessToken); 
 
             if (!accessToken) {
                 toast.error("You are not logged in. Please login first.");
@@ -51,33 +51,38 @@ const CategoriesForm = () => {
     });
 
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <input
-                type="text"
-                name="name"
-                placeholder="Category name"
-                value={formik.values.name}
-                onChange={formik.handleChange}
-                className={formik.errors.name ? "failure" : undefined}
-            />
-            <input
-                type="text"
-                name="description"
-                placeholder="Description"
-                value={formik.values.description}
-                onChange={formik.handleChange}
-                className={formik.errors.description ? "failure" : undefined}
-            />
-            <input
-                type="text"
-                name="created_at"
-                placeholder="Created At"
-                value={formik.values.created_at}
-                onChange={formik.handleChange}
-                className={formik.errors.created_at ? "failure" : undefined}
-            />
-            <button type="submit">Add Category</button>
-        </form>
+        <div>
+           
+            <h1 className="category-Title">Add Category</h1>
+
+            <form onSubmit={formik.handleSubmit}>
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Category name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    className={formik.errors.name ? "failure" : undefined}
+                />
+                <input
+                    type="text"
+                    name="description"
+                    placeholder="Description"
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    className={formik.errors.description ? "failure" : undefined}
+                />
+                <input
+                    type="text"
+                    name="created_at"
+                    placeholder="Created At"
+                    value={formik.values.created_at}
+                    onChange={formik.handleChange}
+                    className={formik.errors.created_at ? "failure" : undefined}
+                />
+                <button id="categoryAdd-btn" type="submit">Add Category</button>
+            </form>
+        </div>
     );
 };
 

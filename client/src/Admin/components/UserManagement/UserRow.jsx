@@ -17,7 +17,7 @@ const UserRow = ({ user, onDelete }) => {
       <td>{user.role}</td>
       <td>
         
-        <button onClick={handleDelete}>Delete</button>
+        <button id='userDel-btn' onClick={handleDelete}>Delete</button>
       </td>
       
     </tr>

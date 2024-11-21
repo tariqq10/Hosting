@@ -12,11 +12,11 @@ const AdminDashboard = () => {
         <Sidebar /> 
         <div className="dashboard-main-content">
           <Routes>
-           
-            <Route path="/admin" element={<h2>Admin Dashboard</h2>} />
-            <Route path="/admin/categories" element={<Categories />} />
-            <Route path="/admin/donations" element={<DonationRequest />} />
-          </Routes>
+  {/* <Route path="/admin" element={<AdminDashboard />} /> */}
+  <Route path="/admin/categories" element={<Categories />} />
+  <Route path="/admin/donations" element={<DonationRequest />} />
+</Routes>
+
         </div>
       </div> 
     </div>

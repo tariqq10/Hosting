@@ -1,20 +1,14 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import '../styles/sidebar.css';
 
 const AdminNavBar = () => {
-    const [isOpen, setIsOpen] = useState(true); 
-
-    const toggleSidebar = () => {
-        setIsOpen(!isOpen);
-    };
-    
     return (
-        <nav className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <div className="sidebar">
             
-            <div className="hamburger" onClick={toggleSidebar}>
-                <span className="material-symbols-outlined">menu</span>
+            <div className="banner">
+                Admin Dashboard
             </div>
+
             <ul>
                 <li>
                     <Link to="/admin">
@@ -41,9 +35,8 @@ const AdminNavBar = () => {
                         <span className="material-symbols-outlined icon_left">corporate_fare</span>Organization Management
                     </Link>
                 </li>
-                
             </ul>
-        </nav>
+        </div>
     );
 };
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
-  const [selectedDescription, setSelectedDescription] = useState(""); // State for selected description
+  const [selectedDescription, setSelectedDescription] = useState(""); 
   
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("session"));
@@ -31,41 +31,38 @@ const CategoriesList = () => {
   }, []);
 
   const handleCategoryClick = (description) => {
-    setSelectedDescription(description); // Update description based on button clicked
+    setSelectedDescription(description); 
   };
 
   return (
     <div>
-      <div className="category-div">
-        {categories.length > 0 ? (
-          categories.map((category) => (
-            <button
-              key={`${category.category_id}-${category.name}`}
-              onClick={() => handleCategoryClick(category.description)} // Pass description to handler
-              style={{
-                margin: "5px",
-                padding: "10px",
-                border: "1px solid #ddd",
-                borderRadius: "5px",
-                background: "#113047",
-                cursor: "pointer",
-              }}
-            >
-              {category.name}
-            </button>
-          ))
-        ) : (
-          <p>No categories available on the backend</p>
-        )}
-      </div>
-      {selectedDescription && (
-        <div style={{ marginTop: "20px", padding: "10px", border: "1px solid #ddd", borderRadius: "5px" }}>
-          <h4>Category Description</h4>
-          <p>{selectedDescription}</p>
-        </div>
+    
+    <h2 className="category-Title">Categories</h2> 
+    
+    <div className="category-div">
+      {categories.length > 0 ? (
+        categories.map((category) => (
+          <button
+          id="category-btn"
+            key={`${category.category_id}-${category.name}`}
+            onClick={() => handleCategoryClick(category.description)} 
+          >
+            {category.name}
+          </button>
+        ))
+      ) : (
+        <p>No categories available on the backend</p>
       )}
     </div>
-  );
+    
+    {selectedDescription && (
+      <div className="category-description">
+        <h4>Category Description</h4>
+        <p>{selectedDescription}</p>
+      </div>
+    )}
+  </div>
+);
 };
 
 export default CategoriesList;

@@ -1,74 +1,83 @@
-/* sidebar.css */
+
+.banner {
+  background-color: #7b0205; 
+  color: #fff; 
+  font-size: 1.5em; 
+  font-weight: bold;
+  text-align: center; 
+  padding: 1em 0; 
+  margin-bottom: 1em; 
+  border-bottom: 3px solid #ff5722; 
+  border-top: 3px solid #ff5722;
+}
+
+
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 210px;
-  height: 100%;
-  background-color: #333;
-  /* color: white; */
-  padding-top: 20px;
-  transition: transform 0.3s ease-in-out;
+  height: 100vh;
+  width: 250px; 
+  background-color: #772222; 
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  box-sizing: border-box; 
+  transition: all 0.3s ease-in-out;
 }
+
 
 .sidebar ul {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
-   padding-top: 60px;
-  margin: 3px;
-  display: flex;
-  flex-direction: column; 
-}
-.sidebar ul li {
-  padding: 15px;
-  color: white;
-  
+  margin: 0;
 }
 
-.sidebar li {
-  margin: 20px 0;
-  width: 155px;
+
+.sidebar ul li {
+  margin: 1em 0;
 }
 
 .sidebar ul li a {
-  text-decoration: none;
-  color: rgb(25, 9, 9);
   display: flex;
   align-items: center;
-  font-size: 14px;
-}
-
-.sidebar a {
-  color: rgb(31, 19, 140);
   text-decoration: none;
-  font-size: 18px;
-  display: inline-flex;
-  padding: 10px 20px;
-  transition: background 0.3s;
+  color: #fff; 
+  padding: 0.8em 1em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%; 
+  box-sizing: border-box; 
 }
 
- .sidebar a:hover {
-  background-color: #2a3b4c;; 
-} 
-.sidebar .icon_left {
-  margin-right: 10px;
-}
-.hamburger {
-  display: none;
-  cursor: pointer;
-  color: white;
-  font-size: 30px;
-  padding: 10px;
-}
-.dashboard-main-content {
-  margin-left: 220px; 
-  padding: 20px;
-}
+
 .icon_left {
-  margin-left: -30px; 
-  color: #26939f;
+  margin-right: 10px; 
 }
-.material-symbols-outlined {
-  margin-right: 5px; 
+
+
+.sidebar ul li a:hover {
+  background-color: #ff5722; 
+  color: #fff;
 }
- 
+
+
+.sidebar ul li a.active {
+  background-color: #ff3d00; 
+  color: #fff;
+}
+
+
+body {
+  margin-left: 250px; 
+  box-sizing: border-box; 
+}
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px; 
+  }
+
+  body {
+    margin-left: 200px; 
+  }
+}

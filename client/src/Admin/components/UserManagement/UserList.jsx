@@ -67,9 +67,13 @@ const UserList = () => {
 
   return (
     <div className="user-list">
+      
+      <h1 className="user-list-heading">User Management</h1>
+
       {loading && <p>Loading users...</p>}
       {error && <p className="error">{error}</p>}
       {users.length === 0 && !loading && !error && <p>No users available to display.</p>}
+
       <table>
         <thead>
           <tr>

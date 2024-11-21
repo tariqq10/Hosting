@@ -31,7 +31,7 @@ body {
 }
 
 .user-list th {
-    background-color: #4caf50;
+    background-color: #16a194;
     color: white;
     font-weight: bold;
 }
@@ -104,7 +104,7 @@ body {
     background-color: #45a049;
 }
 
-/* Add a close button to modal */
+
 .modal-content .close {
     position: absolute;
     top: 10px;
@@ -119,7 +119,7 @@ body {
     color: #000;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .user-list {
         padding: 15px;
@@ -140,7 +140,7 @@ body {
     }
 }
 
-/* Animations */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -148,4 +148,15 @@ body {
     to {
         opacity: 1;
     }
+}
+.user-list-heading {
+    font-size: 2.5em; 
+    color: #7e0d09;   
+    text-align: center; 
+    margin-bottom: 20px ; 
+    font-weight: bold;  
+    border-bottom: 3px solid #223c63;
+}
+#userDel-btn{
+    color: white;
 }
