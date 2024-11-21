@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/profile.css"; // Corrected path
+import NavBar from "./NavBar";
+
 
 const Profile = () => {
   const [donor, setDonor] = useState({});
@@ -55,6 +57,7 @@ const Profile = () => {
 
   return (
     <div className="profile">
+      <NavBar/>
       <h2>Donor Profile</h2>
       <form onSubmit={handleProfileUpdate}>
         <label>Name:</label>

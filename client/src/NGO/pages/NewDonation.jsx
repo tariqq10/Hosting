@@ -1,15 +1,19 @@
-import { useDispatch } from "react-redux"
-import Navbar from "../components/Navbar"
-import {useNavigate} from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useFormik } from "formik";
-import * as Yup from "yup"
+import * as Yup from "yup";
 
 const NewDonationForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const access = localStorage.getItem("session");
+
+  console.log(JSON.parse(access).access_token)
 
   const [categories, setCategories] = useState([]);
 
@@ -29,43 +33,52 @@ const NewDonationForm = () => {
   }, []);
 
   const formik = useFormik({
-    validationSchema:Yup.object().shape({
+    validationSchema: Yup.object().shape({
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
       target_amount: Yup.string().required("Target Amount is required"),
-      category_id: Yup.string().required("Category is required"),
+      category_name: Yup.string().required("Category is required"),
     }),
     initialValues: {
       title: "",
       description: "",
       target_amount: "",
-      category_id: "",
+      category_name: "",
+      status:"pending",
     },
-    onSubmit: async(values) => {
-      axios
-        .post("http://127.0.0.1:5000/requests", values, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-        .then((res) => {
-          console.log("Donation request created successfully", res.data);
-          navigate("/make-donation");
-        })
-        .catch((error) => {
-          console.error("Error", error);
-        });
-    }
-  })
-  
+    onSubmit: async (values) => {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/requests`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${JSON.parse(access).access_token}`,
+        },
+        body: JSON.stringify({
+          title: values.title,
+          description: values.description,
+          target_amount: values.target_amount,
+          category_name: values.category_name,
+          status: values.status,
+        }),
+      });
 
-  
+      console.log(values)
+      const data = await res.json();
+
+      console.log(data)
+
+      if (Object.keys(data).length > 1) {
+        navigate("/make-donation");
+      }
+    },
+  });
+
   return (
     <div>
       <Navbar />
       <div>
         <h2>Create Donation Request</h2>
-        <form>
+        <form onSubmit={formik.handleSubmit}>
           <div>
             <input
               type="text"
@@ -92,38 +105,31 @@ const NewDonationForm = () => {
             />
 
             <select
-            name="category_id"
-            value={formik.values.category_id}
-            onChange={formik.handleChange}
+              name="category_name"
+              value={formik.values.category_name}
+              onChange={formik.handleChange}
             >
               <option value="">Select Category</option>
               {categories.map((category) => {
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
+                return (
+                  <option
+                    key={category.category_id}
+                    value={category.name}
+                  >
+                    {category.name}
+                  </option>
+                );
               })}
             </select>
             {formik.touched.category_id && formik.errors.category_id ? (
-              <div style={{color: 'red'}}>{formik.errors.category_id}</div>
-            ): null}
+              <div style={{ color: "red" }}>{formik.errors.category_id}</div>
+            ) : null}
 
             <button type="submit">Create Request</button>
-
           </div>
         </form>
       </div>
     </div>
   );
-}
-export default NewDonationForm
-
-
-
-
-
-
-
-
-
-
-
+};
+export default NewDonationForm;

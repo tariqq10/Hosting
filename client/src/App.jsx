@@ -31,8 +31,7 @@ import Layout from "./Layout";
 //import DonorHome from './Donor/components/home';
 //import DonationPage from './Donor/components/DonationPage';
 import Requests from './Donor/components/donationRequest';
-import CategoriesList from './Admin/components/CategoryList';
-import DonorCategory from './Donor/components/Category';
+import CategoriesList from './Donor/components/CategoryList';
 // import DonorProfile from './Donor/components/profile';
 
 const App = () => {
@@ -76,7 +75,7 @@ const App = () => {
           <Route path="/category" />
           <Route path="/make-donation" element={<DonationPage/>} />
           <Route path="/donor-profile" element={<DonorProfile/>}/>
-          <Route path="donor-category" element={<DonorCategory/>}/>
+          <Route path="donor-category" element={<CategoriesList/>}/>
           
           {/* <Route path="/donor-profile" element={<DonorProfile/>}/> */}
           {/* New route */}

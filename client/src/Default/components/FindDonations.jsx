@@ -1,60 +1,104 @@
-import React, { useEffect, useState } from 'react';
-import { FaUserPlus, FaEnvelope } from 'react-icons/fa'; // Import icons
-import '../styles/FindDonations.css'; 
-import DefaultDashboard from './DefaultDashboard';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchApprovedDonations } from '../../Donor/slices/donationSlice';
-import {toast} from 'react-hot-toast';
+import React, { useEffect, useState } from "react";
+import DefaultDashboard from "./DefaultDashboard";
+import {toast} from 'react-hot-toast'
 
-const FindDonations = () => {
-  const dispatch = useDispatch()
-  const {approvedDonations, status, error} = useSelector((state) => state.donations)
-  const token = localStorage.getItem('token')
+const Requests = () => {
+  const [selectedDonation, setSelectedDonation] = useState(null);
+
+  const handleClick = (donationRequest) => {
+    setSelectedDonation(donationRequest);
+
+    toast.success('Please register as a donor to donate.Thank you!')
+  };
+  const [requests, setRequests] = useState([]);
+  const [error, setError] = useState(null); // State for managing errors
+
+  // Retrieve the access token from local storage
+
+  const access = localStorage.getItem("session");
+
+  const ngoId = JSON.parse(access);
+  // console.log(access)
 
   useEffect(() => {
-    if (token){
-      dispatch(fetchApprovedDonations(token))
+    // Ensure the token is available before making the request
+    if (access) {
+      const fetchRequests = async () => {
+        try {
+          const response = await fetch("http://127.0.0.1:5000/approved", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${JSON.parse(access).access_token}`,
+            },
+          });
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+
+            if (
+              data &&
+              data.approved_donations &&
+              Array.isArray(data.approved_donations)
+            ) {
+              setRequests(data.approved_donations);
+            } else {
+              console.error("No approved requests");
+              setError("No approved donations");
+            }
+          } else {
+            console.error(
+              "Failed to fetch donation requests:",
+              response.statusText
+            );
+          }
+        } catch (error) {
+          console.error("Error fetching requests:", error);
+        }
+      };
+      fetchRequests();
+    } else {
+      console.error("No access token found.");
     }
-  }, [dispatch, token])
-
-  if(status === 'loading'){
-    return <div>Loading...</div>
-  }
-
-  if (status === 'failed'){
-    return <div>Error: {error}</div>
-  }
-
-  const handleClick = () => {
-    toast.error('Thank you for your interest in donation. To donate kindly register as a donor first')
-  }
+  }, [access]);
 
   return (
-    <div>
-      <DefaultDashboard/>
-      <div>
-        <h1>Donation Requests</h1>
-        {approvedDonations.length > 0 ? (
-          <div>
-            {approvedDonations.map((donation) => (
-            <div key={donation.request_id}>
-              <h3>{donation.title}</h3>
-              <p>{donation.description}</p>
-              <p><strong>Category:</strong>{donation.category}</p>
-
-              <button onClick={() => handleClick()}>Donate</button>
-            </div>
-        ))}
-      </div>
-  ) : (
-    <p>No approved donation found</p>
-  )}
-
+    <div className="home">
+      <DefaultDashboard />
+      <h2> Donation Requests</h2>
+      {error && <p className="text-danger">{error}</p>}{" "}
+      {/* Display error messages */}
+      <table className="table table-striped table-hover">
+        <thead className="table-dark">
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Target Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {requests.length > 0 ? (
+            requests.map((request) => (
+              <tr key={request.request_id}>
+                <td>{request.title}</td>
+                <td>{request.description}</td>
+                <td>{request.target_amount}</td>
+                <td>
+                  <button onClick={() => handleClick(request)}>Donate</button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" className="text-center">
+                No requests available
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
-    </div>
-  )
-  
-
+  );
 };
 
-export default FindDonations;
+export default Requests;

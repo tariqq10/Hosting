@@ -9,7 +9,7 @@ class DonationRequestResource(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('title', type=str, required=True, help='title of the donation is required')
     parser.add_argument('description', type=str, required=True, help='description of the donation is required')
-    parser.add_argument('status', type=str, required=True, help='status of the donation is required')
+    parser.add_argument('status', type=str, required=False, help='status of the donation is required')
     parser.add_argument('target_amount', type=float, required=True, help='amount of the donation is required')
     parser.add_argument('category_name', type=str, required=True, help='category_name of the request is required')
 
