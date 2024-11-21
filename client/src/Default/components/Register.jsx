@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import { FaGoogle, FaFacebook, FaGithub } from "react-icons/fa";
-// import "../styles/Auth.css"; // Ensure your CSS file is imported
+import "../styles/Register.css";
 import DefaultDashboard from "../../Default/components/DefaultDashboard";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -97,7 +97,6 @@ const Auth = () => {
 
       <div className="card-3d-wrap mx-auto">
         <div className="card-3d-wrapper">
-          {/* Register Card */}
           <div className="card-back">
             <div className="center-wrap">
               <h4>Register</h4>
