@@ -87,6 +87,7 @@ useEffect(() => {
       <h2> Donation Requests</h2>
       {error && <p className="text-danger">{error}</p>}{" "}
       {/* Display error messages */}
+      <h2> Donation Requests</h2>
       <table className="table table-striped table-hover">
         <thead className="table-dark">
           <tr>
@@ -118,15 +119,15 @@ useEffect(() => {
       </table>
       {""}
       <div>
-      {selectedDonation && (
-        <DonationPage
-          donationRequest={selectedDonation}
-          amount={amount}
-          onAmountChange={handleAmountChange}
-          onDonate={handleDonateSubmit}
-          onClose={() => setSelectedDonation(null)}
-        />
-      )}
+        {selectedDonation && (
+          <DonationPage
+            donationRequest={selectedDonation}
+            amount={amount}
+            onAmountChange={handleAmountChange}
+            onDonate={handleDonateSubmit}
+            onClose={() => setSelectedDonation(null)}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -43,6 +42,10 @@ const NGOProfile = () => {
       <Navbar />
       {profile && (
         <div>
+          <h2>Organization Details</h2>
+          <p>
+            <strong>Organization Name:</strong> {profile.organization_name}
+          </p>
           <h2>Organization Details</h2>
           <p>
             <strong>Organization Name:</strong> {profile.organization_name}

@@ -68,7 +68,7 @@ const NewDonationForm = () => {
       console.log(data)
 
       if (Object.keys(data).length > 1) {
-        navigate("/make-donation");
+        navigate("/new-donation");
       }
     },
   });
