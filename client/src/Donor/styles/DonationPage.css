@@ -1,73 +1,187 @@
-/* donationPage.css */
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
 
-/* Ensures the page takes up the full screen */
-.donation-page {
+/* Home Page Styles */
+.home {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.home h2 {
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.home .table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.home th, .home td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.home th {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+.home td {
+  background-color: #fafafa;
+}
+
+.home tr:nth-child(even) {
+  background-color: #f4f4f4;
+}
+
+.home tr:hover {
+  background-color: #e8f5e9;
+  cursor: pointer;
+}
+
+/* Increase spacing between navbar and table */
+.home {
+  margin-top: 80px; /* Increased margin-top to provide more space between the navbar and the table */
+}
+
+/* Donation Form Styles */
+.donation-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.donation-form h3 {
+  font-size: 22px;
+  color: #333;
+}
+
+.donation-form form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #f4f4f9;
-  padding: 20px;
 }
 
-/* Center the form and give it a clean layout */
-.donation-form {
-  background-color: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+.donation-form label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
 }
 
-h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-input[type="text"],
-input[type="number"],
-select {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  font-size: 16px;
+.donation-form input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  border: 1px solid #ddd;
-  background-color: #f9f9f9;
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus,
-select:focus {
-  outline: none;
-  border-color: #772222;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
   font-size: 16px;
-  background-color: #772222;
-  color: black;
+  width: 100%;
+}
+
+/* Removed black background from the amount field */
+.donation-form input[type="number"] {
+  background-color: #fff; /* Reset background color for the amount input field */
+}
+
+/* Updated button styles to #652f2f */
+.donation-form button {
+  padding: 12px 20px;
+  background-color: #652f2f; /* Maroon color */
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 
-button:hover {
-  background-color: #772222;
+.donation-form button:hover {
+  background-color: #4c2424; /* Darker maroon on hover */
 }
 
-/* Error message styling */
-.error {
+.donation-form .cancel-btn {
+  background-color: #f44336;
+}
+
+.donation-form .cancel-btn:hover {
+  background-color: #e53935;
+}
+
+/* Button inside the table */
+.home .table button {
+  padding: 8px 16px;
+  background-color: #652f2f; /* Maroon color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.home .table button:hover {
+  background-color: #4c2424; /* Darker maroon on hover */
+}
+
+/* Error and Empty Request Styles */
+.home .text-danger {
   color: red;
+  font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
 }
 
-/* Make the footer stick to the bottom */
-footer {
-  margin-top: auto;
+.home .text-center {
+  text-align: center;
+  color: #333;
+}
+
+/* Toast Notification Styles */
+.Toastify__toast-container {
+  top: 20px;
+  right: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home {
+      padding: 15px;
+  }
+
+  .home th, .home td {
+      padding: 10px;
+      font-size: 14px;
+  }
+
+  .donation-form {
+      padding: 15px;
+  }
+
+  .donation-form button {
+      width: 100%;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
 }
