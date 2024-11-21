@@ -11,7 +11,7 @@ const NGOProfile = () => {
   const token = useSelector((state) => state.auth.token); // Assume you store the JWT token in Redux
 
   useEffect(() => {
-    const fetchProfile = async () => {'http://127.0.0.1:5000/users/ngo'
+    const fetchProfile = async () => {'${import.meta.env.VITE_SERVER_URL}/users/ngo'
       try {
         const response = await axios.get("", {
           headers: {

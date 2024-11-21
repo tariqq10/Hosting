@@ -31,7 +31,7 @@ const OrganizationForm = ({ initialData, onSubmitSuccess }) => {
 
         try {
           const response = await axios.get(
-            `http://127.0.0.1:5000/organizations/${organization_id}`,
+            `${import.meta.env.VITE_SERVER_URL}/${organization_id}`,
             {
               headers: { Authorization: `Bearer ${access}` }
             }
@@ -80,13 +80,13 @@ const OrganizationForm = ({ initialData, onSubmitSuccess }) => {
     try {
       if (organization_id) {
         await axios.patch(
-          `http://127.0.0.1:5000/organizations/${organization_id}`,
+          `${import.meta.env.VITE_SERVER_URL}/organizations/${organization_id}`,
           orgData,
           { headers: { Authorization: `Bearer ${access}` } }
         );
       } else {
         await axios.post(
-          'http://127.0.0.1:5000/organizations',
+          '${import.meta.env.VITE_SERVER_URL}/organizations',
           orgData,
           { headers: { Authorization: `Bearer ${access}` } }
         );

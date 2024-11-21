@@ -27,7 +27,7 @@ const AdminDashboard = () => {
 
       try {
         // Fetching stats
-        const statsResponse = await fetch('http://127.0.0.1:5000/reports', {
+        const statsResponse = await fetch('${import.meta.env.VITE_SERVER_URL}/reports', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

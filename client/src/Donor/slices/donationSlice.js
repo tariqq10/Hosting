@@ -16,7 +16,7 @@ export const fetchApprovedDonations = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:5000/approvals",
+        "${import.meta.env.VITE_SERVER_URL}/approvals",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -33,7 +33,7 @@ export const fetchApprovedDonations = createAsyncThunk(
 export const fetchDonations = createAsyncThunk('donations/fetchDonations',async (thunkApi) => {
   try{
     const response = await axios.get(
-      "http://127.0.0.1:5000/approvals/history",
+      "${import.meta.env.VITE_SERVER_URL}/approvals/history",
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }

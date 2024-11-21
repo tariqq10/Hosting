@@ -26,7 +26,7 @@ const CategoriesForm = () => {
             }
 
             try {
-                const res = await fetch("http://127.0.0.1:5000/categories", {
+                const res = await fetch("${import.meta.env.VITE_SERVER_URL}/categories", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

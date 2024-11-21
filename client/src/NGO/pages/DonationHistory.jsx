@@ -13,7 +13,7 @@ const DonationHistory = () => {
   useEffect(() => {
     if (ngoId?.user?.user_id){
       axios
-      .get(`http://127.0.0.1:5000/requests/${ngoId?.user?.user_id}`, {
+      .get(`${import.meta.env.VITE_SERVER_URL}/requests/${ngoId?.user?.user_id}`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${JSON.parse(access).access_token}`,

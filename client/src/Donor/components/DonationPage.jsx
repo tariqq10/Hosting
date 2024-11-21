@@ -45,7 +45,7 @@ const DonationPage = ({donationRequest, onClose, onDonate}) => {
       };
 
       const accessToken = localStorage.getItem("session");
-      const response = await fetch("http://127.0.0.1:5000/donations", {
+      const response = await fetch("${import.meta.env.VITE_SERVER_URL}/donations", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

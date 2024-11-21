@@ -20,7 +20,7 @@ const Requests = () => {
     if (token) {
       const fetchRequests = async () => {
         try {
-          const response = await fetch("http://127.0.0.1:5000/approved", {
+          const response = await fetch("${import.meta.env.VITE_SERVER_URL}/approved", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const Requests = () => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/donations", {
+      const response = await fetch("${import.meta.env.VITE_SERVER_URL}/donations", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

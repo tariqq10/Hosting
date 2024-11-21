@@ -1,22 +1,21 @@
 import axios from "axios";
 
-const api =axios.create({
-    baseURL: "http://localhost:5000/api",
+const api = axios.create({
+    baseURL: `${import.meta.env.VITE_SERVER_URL}/api`, // Use environment variable
     headers: {
         "Content-Type": 'application/json',
     },
-})
+});
 
 api.interceptors.request.use(
     (config) => {
-
-        const token = localStorage.getItem('token')
-        if (token){
-            config.headers.Authorization = `Bearer ${token}`
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
         }
-        return config
+        return config;
     },
     (error) => Promise.reject(error)
-)
+);
 
-export const postDonation = (donationData) => api.post('/donations', donationData)
+export const postDonation = (donationData) => api.post('/donations', donationData);

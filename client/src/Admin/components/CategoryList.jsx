@@ -9,7 +9,7 @@ const CategoriesList = () => {
     if (!session) return;
 
     const accessToken = session.access_token;
-    fetch("http://127.0.0.1:5000/categories", {
+    fetch("${import.meta.env.VITE_SERVER_URL}/categories", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

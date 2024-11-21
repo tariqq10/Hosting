@@ -27,7 +27,7 @@ const OrganizationDetails = () => {
 
       try {
         const response = await axios.get(
-          `http://127.0.0.1:5000/organizations/${organization_id}`,
+          `${import.meta.env.VITE_SERVER_URL}/organizations/${organization_id}`,
           {
             headers: { Authorization: `Bearer ${access}` }
           }
@@ -60,7 +60,7 @@ const OrganizationDetails = () => {
     }
 
     try {
-      await axios.delete(`http://127.0.0.1:5000/organizations/${organization_id}`, {
+      await axios.delete(`${import.meta.env.VITE_SERVER_URL}/organizations/${organization_id}`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
