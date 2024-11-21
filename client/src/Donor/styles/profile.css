@@ -1,98 +1,86 @@
-/* General Profile Container */
+/* Profile container styling */
 .profile {
-  max-width: 900px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
 }
 
-h2,
-h3 {
-  color: #333;
+/* Heading styles */
+.profile h2 {
+  color: #ff0000;
+  margin-bottom: 20px;
+  font-size: 28px;
   text-align: center;
 }
 
-h2 {
-  margin-bottom: 20px;
+.profile h3 {
+  color: #ff0000;
+  margin-top: 30px;
+  font-size: 22px;
+  text-align: center;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 500px;
-  margin: 0 auto;
+/* Profile details section (name and email) */
+.profile-details {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-label {
-  font-size: 16px;
-  font-weight: bold;
-  color: #555;
+.profile-details p {
+  font-size: 18px;
+  margin: 10px 0;
 }
 
-input[type="text"],
-input[type="email"] {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #fff;
-  width: 100%;
+.profile-details strong {
+  color: #333;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus {
-  outline: none;
-  border-color: #f39c12;
-}
-
-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  background-color: #f39c12;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  align-self: center;
-}
-
-button:hover {
-  background-color: #e67e22;
-}
-
-ul {
+/* Donation history section styling */
+.profile ul {
   list-style-type: none;
   padding: 0;
+  width: 100%;
+  max-width: 500px;
 }
 
-li {
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.profile li {
+  padding: 12px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-li span {
-  font-weight: bold;
+.profile li strong {
+  color: #ff0000;
 }
 
-li p {
-  margin: 0;
-  color: #666;
+.profile li:last-child {
+  margin-bottom: 0;
 }
 
+/* Responsive styles */
 @media (max-width: 768px) {
   .profile {
     padding: 15px;
-    margin: 10px;
   }
 
-  form {
-    width: 100%;
+  .profile h2 {
+    font-size: 24px;
+  }
+
+  .profile ul {
+    max-width: 90%;
+  }
+
+  .profile li {
+    font-size: 14px;
   }
 }
