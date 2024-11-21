@@ -9,13 +9,10 @@ const DonationRequest = () => {
 
 // Retrieve the access token from local storage
 const accessToken = localStorage.getItem('session');
-// let access = JSON.parse(accessToken).access_token;
+let access = JSON.parse(accessToken).access_token;
 
 
-  const access = localStorage.getItem("session");
-
-  const ngoId = JSON.parse(access);
-
+  console.log(access)
 
   useEffect(() => {
     // Ensure the token is available before making the request
