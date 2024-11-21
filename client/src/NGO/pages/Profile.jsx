@@ -3,39 +3,75 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Navbar from "../components/Navbar"
 
-const NGOProfile = () => {
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const token = useSelector((state) => state.auth.token); // Assume you store the JWT token in Redux
 
   useEffect(() => {
-    const fetchProfile = async () => {'http://127.0.0.1:5000/users/ngo'
-      try {
-        const response = await axios.get("", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    axios.get('/api/ngos/profile')
+      .then(response => {
+        setProfileData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching profile data:', error);
+      });
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSaveChanges = () => {
+    axios.put('/api/ngos/profile', profileData)
+      .then(response => {
+        setIsEditing(false);
+        alert('Profile updated successfully');
+      })
+      .catch(error => {
+        console.error('Error updating profile data:', error);
+      });
+  };
+
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (passwordData.newPassword === passwordData.confirmNewPassword) {
+      axios.post('/api/ngos/change-password', passwordData)
+        .then(response => {
+          alert('Password changed successfully');
+        })
+        .catch(error => {
+          console.error('Error changing password:', error);
         });
-        setProfile(response.data);
-      } catch (err) {
-        setError("Failed to fetch profile data");
-      } finally {
-        setLoading(false);
-      }
-    };
+    } else {
+      alert('Passwords do not match');
+    }
+  };
 
-    fetchProfile();
-  }, [token]);
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const handleFileUpload = () => {
+    const formData = new FormData();
+    formData.append('document', file);
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+axios.post('/api/ngos/upload-doc', formData)
+  .then(response => {
+    alert('Document uploaded successfully');
+  })
+  .catch(error => {
+    console.error('Error uploading document:', error);
+  });
+  };
 
   return (
     <div>
@@ -64,20 +100,39 @@ const NGOProfile = () => {
           </p>
           <h4>Contact Person</h4>
 
-          <p>
-            <strong>First Name:</strong> {profile.first_name}
-          </p>
-          <p>
-            <strong>Last Name:</strong> {profile.last_name}
-          </p>
 
-          <p>
-            <strong>Phone:</strong> {profile.phone}
-          </p>
-        </div>
-      )}
+    {isEditing ? (
+      <button type="button" onClick={handleSaveChanges}>Save Changes</button>
+    ) : (
+      <button type="button" onClick={() => setIsEditing(true)}>Edit Profile</button>
+    )}
+  </form>
+
+  {/* Change Password */}
+  <h3>Change Password</h3>
+  <form onSubmit={handlePasswordSubmit}>
+    <div className="form-group">
+      <label>Current Password:</label>
+      <input type="password" name="currentPassword" value={passwordData.currentPassword} onChange={handlePasswordChange} />
     </div>
-  );
-};
+    <div className="form-group">
+      <label>New Password:</label>
+      <input type="password" name="newPassword" value={passwordData.newPassword} onChange={handlePasswordChange} />
+    </div>
+    <div className="form-group">
+      <label>Confirm New Password:</label>
+      <input type="password" name="confirmNewPassword" value={passwordData.confirmNewPassword} onChange={handlePasswordChange} />
+    </div>
+    <button type="submit">Change Password</button>
+  </form>
 
-export default NGOProfile;
+  {/* Document Upload */}
+  <h3>Upload Document (Proof of Registration, Tax Forms, etc.)</h3>
+  <input type="file" onChange={handleFileChange} />
+  <button type="button" onClick={handleFileUpload}>Upload Document</button>
+</div>
+  );
+}
+
+export default Profile;
+
