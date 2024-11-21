@@ -1,99 +1,124 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import NavBar from "./NavBar";
-// import Footer from "./Footer";
 import "../styles/home.css";
-import DonationPage from "./DonationPage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+const Requests = () => {
+  const [selectedDonation, setSelectedDonation] = useState(null);
+  const [amount, setAmount] = useState("");
+  const [requests, setRequests] = useState([]);
+  const [error, setError] = useState(null);
 
-const Requests= () => {
+  const access = localStorage.getItem("session");
+  const token = access ? JSON.parse(access).access_token : null;
 
-  const [selectedDonation, setSelectedDonation] = useState(null)
-  const [amount, setAmount] = useState([])
+  // Ref for donation form to scroll to it
+  const donationFormRef = useRef(null);
+
+  useEffect(() => {
+    if (token) {
+      const fetchRequests = async () => {
+        try {
+          const response = await fetch("http://127.0.0.1:5000/approved", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setRequests(data.approved_donations || []);
+          } else {
+            const errorText = await response.text();
+            setError(`Failed to fetch donation requests: ${errorText}`);
+          }
+        } catch (error) {
+          setError("An error occurred while fetching donation requests.");
+          console.error(error);
+        }
+      };
+
+      fetchRequests();
+    } else {
+      setError("No access token found. Please log in.");
+    }
+  }, [token]);
 
   const handleClick = (donationRequest) => {
-    setSelectedDonation(donationRequest)
-    setAmount('')
-  }
+    setSelectedDonation(donationRequest);
+    setAmount("");
 
-    const handleAmountChange = (e) => {
-      setAmount(e.target.value); // Update the amount as user types
-    };
+    // Scroll to donation form
+    if (donationFormRef.current) {
+      donationFormRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-    const handleDonateSubmit = (e) => {
-      e.preventDefault();
-      if (!amount || isNaN(amount) || amount <= 0) {
-        alert("Please enter a valid donation amount.");
-        return;
-      }
+  const handleAmountChange = (e) => {
+    setAmount(e.target.value);
+  };
 
-      // Here you can handle the actual donation process (e.g., API call or processing)
-      alert(`Thank you for donating ${amount} to ${selectedDonation.title}`);
+  const handleDonateSubmit = async (e) => {
+    e.preventDefault();
+    if (!amount || isNaN(amount) || amount <= 0) {
+      toast.error("Please enter a valid donation amount.", {
+        position: "top-center",  // Center the error toast at the top
+      });
+      return;
+    }
 
-      // Reset the form or close the donation prompt
-      setSelectedDonation(null); // Close the donation page/modal
-    };
-const [requests, setRequests] = useState([]);
-const [error, setError] = useState(null); // State for managing errors
+    try {
+      const response = await fetch("http://127.0.0.1:5000/donations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          donation_request_id: selectedDonation.request_id,
+          amount: parseFloat(amount),
+        }),
+      });
 
-// Retrieve the access token from local storage
-
-const access = localStorage.getItem("session");
-
-const ngoId = JSON.parse(access);
-// console.log(access)
-
-useEffect(() => {
-  // Ensure the token is available before making the request
-  if (access) {
-    const fetchRequests = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:5000/approved", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${JSON.parse(access).access_token}`,
-          },
+      if (response.ok) {
+        const { message } = await response.json();
+        toast.success("Thank you for your generous donation! You will receive an M-Pesa STK push shortly. Please confirm the transaction by typing your mpesa pin.", {
+          position: "top-center",  // Center the success toast at the top
         });
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data)
+        setSelectedDonation(null); // Close the donation modal
+      } else {
+        const errorData = await response.json();
 
-          if(data && data.approved_donations && Array.isArray(data.approved_donations)){
-          setRequests(data.approved_donations);
-          } else {
-            console.error("No approved requests")
-            setError("No approved donations")
-          }
+        // Check if transaction cancellation message is returned
+        if (errorData.message && errorData.message.includes("Transaction canceled")) {
+          toast.warn(`${errorData.message}`, { position: "top-center" }); // Yellow for warnings, positioned at the top center
         } else {
-          console.error(
-            "Failed to fetch donation requests:",
-            response.statusText
-          );
+          toast.error(`Donation failed: ${errorData.message}`, { position: "top-center" });
         }
-      } catch (error) {
-        console.error("Error fetching requests:", error);
       }
-    };
-    fetchRequests();
-  } else {
-    console.error("No access token found.");
-  }
-}, [access]);
-
+    } catch (error) {
+      console.error("Error submitting donation:", error);
+      toast.error("An error occurred while processing your donation.", {
+        position: "top-center",  // Center the error toast at the top
+      });
+    }
+  };
 
   return (
     <div className="home">
       <NavBar isHome={true} />
-      <h2> Donation Requests</h2>
-      {error && <p className="text-danger">{error}</p>}{" "}
-      {/* Display error messages */}
-      <h2> Donation Requests</h2>
+      <h2>Approved Requests</h2>
+      {error && <p className="text-danger">{error}</p>}
       <table className="table table-striped table-hover">
         <thead className="table-dark">
           <tr>
             <th>Title</th>
             <th>Description</th>
             <th>Target Amount</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -110,32 +135,37 @@ useEffect(() => {
             ))
           ) : (
             <tr>
-              <td colSpan="5" className="text-center">
+              <td colSpan="4" className="text-center">
                 No requests available
               </td>
             </tr>
           )}
         </tbody>
       </table>
-      {""}
-      <div>
-        {selectedDonation && (
-          <DonationPage
-            donationRequest={selectedDonation}
-            amount={amount}
-            onAmountChange={handleAmountChange}
-            onDonate={handleDonateSubmit}
-            onClose={() => setSelectedDonation(null)}
-          />
-        )}
-      </div>
+      {selectedDonation && (
+        <div className="donation-form" ref={donationFormRef}>
+          <h3>Donate to: {selectedDonation.title}</h3>
+          <form onSubmit={handleDonateSubmit}>
+            <div>
+              <label>Amount:</label>
+              <input
+                type="number"
+                value={amount}
+                onChange={handleAmountChange}
+                placeholder="Enter amount"
+                required
+              />
+            </div>
+            <button type="submit">Donate</button>
+            <button type="button" onClick={() => setSelectedDonation(null)}>
+              Cancel
+            </button>
+          </form>
+        </div>
+      )}
+      <ToastContainer position="top-center" />
     </div>
   );
 };
 
 export default Requests;
-
-
-
-
-      
