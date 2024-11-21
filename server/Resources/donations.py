@@ -72,7 +72,7 @@ class DonationResource(Resource):
         
         
         
-    @donor_required
+    @jwt_required()
     def post(self):
         # Parse the 'amount' field only, as other fields will be auto-assigned
         data = self.parser.parse_args()
