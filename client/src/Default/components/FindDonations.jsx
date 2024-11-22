@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from "react";
 import DefaultDashboard from "./DefaultDashboard";
-import {toast} from 'react-hot-toast'
-import "../styles/FindDonations.css"
+import { toast } from 'react-hot-toast';
+import "../styles/FindDonations.css";
 
 const FindDonations = () => {
   const [selectedDonation, setSelectedDonation] = useState(null);
-
-  const handleClick = (donationRequest) => {
-    setSelectedDonation(donationRequest);
-
-    toast.success('Please register as a donor to donate.Thank you!')
-  };
   const [requests, setRequests] = useState([]);
   const [error, setError] = useState(null); // State for managing errors
 
+  const baseURL = import.meta.env.VITE_SERVER_URL; // Define the base URL
+
+  const handleClick = (donationRequest) => {
+    setSelectedDonation(donationRequest);
+    toast.success('Please register as a donor to donate. Thank you!');
+  };
+
   // Retrieve the access token from local storage
-
   const access = localStorage.getItem("session");
-
   const ngoId = JSON.parse(access);
-  // console.log(access)
 
   useEffect(() => {
     // Ensure the token is available before making the request
     if (access) {
       const fetchRequests = async () => {
         try {
-          const response = await fetch("${import.meta.env.VITE_SERVER_URL}/approved", {
+          const response = await fetch(`${baseURL}/approved`, { // Use baseURL here
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -37,21 +35,14 @@ const FindDonations = () => {
             const data = await response.json();
             console.log(data);
 
-            if (
-              data &&
-              data.approved_donations &&
-              Array.isArray(data.approved_donations)
-            ) {
+            if (data && data.approved_donations && Array.isArray(data.approved_donations)) {
               setRequests(data.approved_donations);
             } else {
               console.error("No approved requests");
               setError("No approved donations");
             }
           } else {
-            console.error(
-              "Failed to fetch donation requests:",
-              response.statusText
-            );
+            console.error("Failed to fetch donation requests:", response.statusText);
           }
         } catch (error) {
           console.error("Error fetching requests:", error);
@@ -61,14 +52,13 @@ const FindDonations = () => {
     } else {
       console.error("No access token found.");
     }
-  }, [access]);
+  }, [access, baseURL]); // Add baseURL to dependencies
 
   return (
     <div className="home">
       <DefaultDashboard />
       <h2> Donation Requests</h2>
-      {error && <p className="text-danger">{error}</p>}{" "}
-      {/* Display error messages */}
+      {error && <p className="text-danger">{error}</p>} {/* Display error messages */}
       <table className="table table-striped table-hover">
         <thead className="table-dark">
           <tr>

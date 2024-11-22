@@ -7,6 +7,9 @@ const UserList = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Define baseURL for API requests
+  const baseURL = import.meta.env.VITE_SERVER_URL || 'https://your-default-url.com'; // Fallback to a default URL if VITE_SERVER_URL is not set
+
   const session = JSON.parse(localStorage.getItem('session'));
   const adminToken = session ? session.access_token : null;
 
@@ -21,7 +24,7 @@ const UserList = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await fetch('${import.meta.env.VITE_SERVER_URL}/users', {
+      const response = await fetch(`${baseURL}/users`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -45,7 +48,7 @@ const UserList = () => {
 
   const deleteUser = async (userId) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/${userId}`, {
+      const response = await fetch(`${baseURL}/users/${userId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -67,7 +70,6 @@ const UserList = () => {
 
   return (
     <div className="user-list">
-      
       <h1 className="user-list-heading">User Management</h1>
 
       {loading && <p>Loading users...</p>}

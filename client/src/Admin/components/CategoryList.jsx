@@ -3,13 +3,15 @@ import { useEffect, useState } from "react";
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState(""); 
-  
+
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("session"));
     if (!session) return;
 
+    const baseURL = import.meta.env.VITE_SERVER_URL; // Use dynamic baseURL
     const accessToken = session.access_token;
-    fetch("${import.meta.env.VITE_SERVER_URL}/categories", {
+
+    fetch(`${baseURL}/categories`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -36,33 +38,32 @@ const CategoriesList = () => {
 
   return (
     <div>
-    
-    <h2 className="category-Title">Categories</h2> 
-    
-    <div className="category-div">
-      {categories.length > 0 ? (
-        categories.map((category) => (
-          <button
-          id="category-btn"
-            key={`${category.category_id}-${category.name}`}
-            onClick={() => handleCategoryClick(category.description)} 
-          >
-            {category.name}
-          </button>
-        ))
-      ) : (
-        <p>No categories available on the backend</p>
+      <h2 className="category-Title">Categories</h2> 
+
+      <div className="category-div">
+        {categories.length > 0 ? (
+          categories.map((category) => (
+            <button
+              id="category-btn"
+              key={`${category.category_id}-${category.name}`}
+              onClick={() => handleCategoryClick(category.description)} 
+            >
+              {category.name}
+            </button>
+          ))
+        ) : (
+          <p>No categories available on the backend</p>
+        )}
+      </div>
+
+      {selectedDescription && (
+        <div className="category-description">
+          <h4>Category Description</h4>
+          <p>{selectedDescription}</p>
+        </div>
       )}
     </div>
-    
-    {selectedDescription && (
-      <div className="category-description">
-        <h4>Category Description</h4>
-        <p>{selectedDescription}</p>
-      </div>
-    )}
-  </div>
-);
+  );
 };
 
 export default CategoriesList;

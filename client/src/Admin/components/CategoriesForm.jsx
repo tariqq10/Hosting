@@ -1,10 +1,35 @@
 import { useFormik } from "formik";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 
+const baseURL = import.meta.env.VITE_SERVER_URL; // Define base URL at the top
+
 const CategoriesForm = () => {
+    const [categories, setCategories] = useState([]);
+    const [fetchError, setFetchError] = useState(null);
+
     const session = JSON.parse(localStorage.getItem("session")); 
     const accessToken = session?.access_token; 
+
+    // Fetch categories on component mount
+    useEffect(() => {
+        fetch(`${baseURL}/categories`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setCategories(data);
+                setFetchError(null);
+            })
+            .catch((error) => {
+                setFetchError(error.message);
+                console.error("Error fetching categories:", error);
+            });
+    }, []);
 
     const formik = useFormik({
         validationSchema: Yup.object().shape({
@@ -26,7 +51,7 @@ const CategoriesForm = () => {
             }
 
             try {
-                const res = await fetch("${import.meta.env.VITE_SERVER_URL}/categories", {
+                const res = await fetch(`${baseURL}/categories`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -40,6 +65,9 @@ const CategoriesForm = () => {
                 if (res.ok) {
                     toast.success(`Successfully added category: ${values.name}`);
                     resetForm();
+
+                    // Refetch categories to update the list
+                    setCategories((prev) => [...prev, data]);
                 } else {
                     toast.error(data.message || "An error occurred");
                 }
@@ -52,7 +80,6 @@ const CategoriesForm = () => {
 
     return (
         <div>
-           
             <h1 className="category-Title">Add Category</h1>
 
             <form onSubmit={formik.handleSubmit}>
@@ -82,6 +109,17 @@ const CategoriesForm = () => {
                 />
                 <button id="categoryAdd-btn" type="submit">Add Category</button>
             </form>
+
+            <h2 className="category-Title">Existing Categories</h2>
+            {fetchError && <p className="error">Error: {fetchError}</p>}
+            {!fetchError && categories.length === 0 && <p>No categories found.</p>}
+            <ul>
+                {categories.map((category) => (
+                    <li key={category.category_id}>
+                        <strong>{category.name}</strong>: {category.description}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 };

@@ -26,8 +26,9 @@ const OrganizationDetails = () => {
       }
 
       try {
+        const baseURL = import.meta.env.VITE_SERVER_URL; // Base URL for the API
         const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/organizations/${organization_id}`,
+          `${baseURL}/organizations/${organization_id}`,
           {
             headers: { Authorization: `Bearer ${access}` }
           }
@@ -60,7 +61,8 @@ const OrganizationDetails = () => {
     }
 
     try {
-      await axios.delete(`${import.meta.env.VITE_SERVER_URL}/organizations/${organization_id}`, {
+      const baseURL = import.meta.env.VITE_SERVER_URL; // Base URL for the API
+      await axios.delete(`${baseURL}/organizations/${organization_id}`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },

@@ -16,11 +16,14 @@ const Requests = () => {
   // Ref for donation form to scroll to it automatically
   const donationFormRef = useRef(null);
 
+  // Define the baseURL for your API
+  const baseURL = import.meta.env.VITE_SERVER_URL;
+
   useEffect(() => {
     if (token) {
       const fetchRequests = async () => {
         try {
-          const response = await fetch("${import.meta.env.VITE_SERVER_URL}/approved", {
+          const response = await fetch(`${baseURL}/approved`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -45,7 +48,7 @@ const Requests = () => {
     } else {
       setError("No access token found. Please log in.");
     }
-  }, [token]);
+  }, [token, baseURL]);  // Add baseURL to the dependencies of useEffect
 
   const handleClick = (donationRequest) => {
     setSelectedDonation(donationRequest);
@@ -71,7 +74,7 @@ const Requests = () => {
     }
 
     try {
-      const response = await fetch("${import.meta.env.VITE_SERVER_URL}/donations", {
+      const response = await fetch(`${baseURL}/donations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

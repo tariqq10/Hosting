@@ -1,4 +1,4 @@
-// import React, { useState } from 'react';
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { FaGoogle, FaFacebook, FaGithub } from "react-icons/fa";
 import "../styles/Auth.css"; // Ensure your CSS file is imported
@@ -7,6 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+
+// Define baseURL for API requests
+const baseURL = import.meta.env.VITE_SERVER_URL;
 
 const themes = [
   // Same theme array...
@@ -34,8 +37,7 @@ const Auth = () => {
       email: Yup.string().required("Email is required"),
       phone: Yup.string().required("Phone is required"),
       password: Yup.string().required("Password is required"),
-
-      confirm_password: Yup.string().required("Role is required"),
+      confirm_password: Yup.string().required("Confirmation password is required"),
     }),
     initialValues: {
       role: "",
@@ -47,7 +49,7 @@ const Auth = () => {
       confirm_password: "",
     },
     onSubmit: async (values) => {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users`, {
+      const res = await fetch(`${baseURL}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,34 +97,19 @@ const Auth = () => {
               <h4>Register</h4>
               <form onSubmit={formik.handleSubmit}>
                 <select
-                  type="text"
                   name="role"
-                  placeholder="Role"
                   value={formik.values.role}
                   onChange={formik.handleChange}
-                  helpertext={formik.errors.first_name}
-                  color={formik.errors.role ? "failure" : undefined}
                 >
                   <option value="ngo">NGO</option>
                   <option value="donor">Donor</option>
                 </select>
                 <input
                   type="text"
-                  name="role"
-                  placeholder="Role"
-                  value={formik.values.role}
-                  onChange={formik.handleChange}
-                  helpertext={formik.errors.first_name}
-                  color={formik.errors.role ? "failure" : undefined}
-                />
-                <input
-                  type="text"
                   name="first_name"
                   placeholder="First Name"
                   value={formik.values.first_name}
                   onChange={formik.handleChange}
-                  helpertext={formik.errors.first_name}
-                  color={formik.errors.first_name ? "failure" : undefined}
                 />
                 <input
                   type="text"
@@ -130,48 +117,34 @@ const Auth = () => {
                   placeholder="Last Name"
                   value={formik.values.last_name}
                   onChange={formik.handleChange}
-                  helpertext={formik.errors.last_name}
-                  color={formik.errors.last_name ? "failure" : undefined}
                 />
-
                 <input
                   type="email"
                   name="email"
                   placeholder="Email"
                   value={formik.values.email}
                   onChange={formik.handleChange}
-                  helpertext={formik.errors.email}
-                  color={formik.errors.email ? "failure" : undefined}
                 />
-
                 <input
                   type="tel"
                   name="phone"
                   placeholder="Phone"
                   value={formik.values.phone}
                   onChange={formik.handleChange}
-                  helpertext={formik.errors.phone}
-                  color={formik.errors.phone ? "failure" : undefined}
                 />
-
                 <input
                   type="password"
                   name="password"
                   placeholder="Password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
-                  helpertext={formik.errors.password}
-                  color={formik.errors.password ? "failure" : undefined}
                 />
-
                 <input
                   type="password"
                   name="confirm_password"
-                  placeholder="confirmation Password"
+                  placeholder="Confirm Password"
                   value={formik.values.confirm_password}
                   onChange={formik.handleChange}
-                  helpertext={formik.errors.confirm_password}
-                  color={formik.errors.confirm_password ? "failure" : undefined}
                 />
                 <button type="submit">Register</button>
               </form>
