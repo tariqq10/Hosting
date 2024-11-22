@@ -9,21 +9,17 @@ const Profile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const baseURL = import.meta.env.VITE_SERVER_URL;  // Use baseURL
-
   useEffect(() => {
     const fetchDonorData = async () => {
       try {
-        // Fetch donor details from the baseURL
-        const response = await fetch(`${baseURL}/users`);
+        const response = await fetch("https://hosting-33ri.onrender.com/users"); // Hardcoded URL
         const data = await response.json();
         setDonor(data);
         setName(data.name);
         setEmail(data.email);
 
-        // Fetch donations based on user_id from the baseURL
         const donationsResponse = await fetch(
-          `${baseURL}/api/donations?user_id=${data.user_id}`
+          `/api/donations?user_id=${data.user_id}`
         );
         const donationsData = await donationsResponse.json();
         setDonations(donationsData);
@@ -35,15 +31,14 @@ const Profile = () => {
     };
 
     fetchDonorData();
-  }, [baseURL]);
+  }, []);
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     const updatedDonor = { name, email };
 
     try {
-      // Update donor profile using the baseURL
-      const response = await fetch(`${baseURL}/users`, {
+      const response = await fetch("https://hosting-33ri.onrender.com/users", { // Hardcoded URL
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedDonor),

@@ -8,7 +8,7 @@ const FindDonations = () => {
   const [requests, setRequests] = useState([]);
   const [error, setError] = useState(null); // State for managing errors
 
-  const baseURL = import.meta.env.VITE_SERVER_URL; // Define the base URL
+  const baseURL = "https://hosting-33ri.onrender.com"; // Hardcoded base URL
 
   const handleClick = (donationRequest) => {
     setSelectedDonation(donationRequest);
@@ -24,7 +24,7 @@ const FindDonations = () => {
     if (access) {
       const fetchRequests = async () => {
         try {
-          const response = await fetch(`${baseURL}/approved`, { // Use baseURL here
+          const response = await fetch(`${baseURL}/approved`, { // Use hardcoded URL here
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -52,7 +52,7 @@ const FindDonations = () => {
     } else {
       console.error("No access token found.");
     }
-  }, [access, baseURL]); // Add baseURL to dependencies
+  }, [access]); // baseURL is no longer needed in dependencies as it's hardcoded
 
   return (
     <div className="home">

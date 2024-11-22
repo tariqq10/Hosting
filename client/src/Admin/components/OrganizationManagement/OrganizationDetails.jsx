@@ -26,7 +26,8 @@ const OrganizationDetails = () => {
       }
 
       try {
-        const baseURL = import.meta.env.VITE_SERVER_URL; // Base URL for the API
+        // Replace the environment variable with the hardcoded URL
+        const baseURL = 'https://hosting-33ri.onrender.com'; // Hardcoded URL
         const response = await axios.get(
           `${baseURL}/organizations/${organization_id}`,
           {
@@ -61,7 +62,8 @@ const OrganizationDetails = () => {
     }
 
     try {
-      const baseURL = import.meta.env.VITE_SERVER_URL; // Base URL for the API
+      // Replace the environment variable with the hardcoded URL
+      const baseURL = 'https://hosting-33ri.onrender.com'; // Hardcoded URL
       await axios.delete(`${baseURL}/organizations/${organization_id}`, {
         headers: {
           Authorization: `Bearer ${access}`,

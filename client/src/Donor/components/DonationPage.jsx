@@ -42,7 +42,8 @@ const DonationPage = ({ donationRequest, onClose, onDonate }) => {
       };
 
       const accessToken = localStorage.getItem("session");
-      const baseURL = import.meta.env.VITE_SERVER_URL; // Use baseURL
+      // Hardcoding the server URL
+      const baseURL = "https://hosting-33ri.onrender.com"; // Hardcoded URL
 
       const response = await fetch(`${baseURL}/donations`, {
         method: "POST",

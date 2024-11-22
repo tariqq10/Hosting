@@ -8,7 +8,8 @@ const CategoriesList = () => {
     const session = JSON.parse(localStorage.getItem("session"));
     if (!session) return;
 
-    const baseURL = import.meta.env.VITE_SERVER_URL; // Use dynamic baseURL
+    // Hardcoded URL instead of using environment variable
+    const baseURL = "https://hosting-33ri.onrender.com"; // Hardcoded URL
     const accessToken = session.access_token;
 
     fetch(`${baseURL}/categories`, {

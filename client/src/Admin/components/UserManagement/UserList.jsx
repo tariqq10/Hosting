@@ -7,8 +7,8 @@ const UserList = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Define baseURL for API requests
-  const baseURL = import.meta.env.VITE_SERVER_URL || 'https://your-default-url.com'; // Fallback to a default URL if VITE_SERVER_URL is not set
+  // Hardcode the base URL for API requests
+  const baseURL = 'https://hosting-33ri.onrender.com'; // Your hardcoded API URL
 
   const session = JSON.parse(localStorage.getItem('session'));
   const adminToken = session ? session.access_token : null;

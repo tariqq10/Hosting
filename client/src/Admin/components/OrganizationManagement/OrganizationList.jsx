@@ -10,7 +10,8 @@ const OrganizationList = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const baseURL = import.meta.env.VITE_SERVER_URL; // Get base URL from the environment
+  // Hardcoding the URL directly
+  const baseURL = 'https://hosting-33ri.onrender.com'; // Hardcoded base URL
 
   const fetchOrganizations = async () => {
     const accessToken = localStorage.getItem('session');

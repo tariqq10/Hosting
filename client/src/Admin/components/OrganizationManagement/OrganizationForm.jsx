@@ -13,8 +13,8 @@ const OrganizationForm = ({ initialData, onSubmitSuccess }) => {
   });
   const [error, setError] = useState(null);
 
-  // Fetch the base URL from the environment variable
-  const baseURL = import.meta.env.VITE_SERVER_URL;
+  // Hardcoding the base URL directly
+  const baseURL = 'https://hosting-33ri.onrender.com';
 
   useEffect(() => {
     if (initialData) {

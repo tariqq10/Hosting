@@ -26,10 +26,12 @@ const NavBar = () => {
           </li>
           {/* Add Make a Donation link */}
           <li>
-          <Link to="" className="nav-link">
-            Profile
-          </Link>
-          </li>
+  {/* <Link to="/donor-profile" className="nav-link">
+    Profile
+  </Link> */}
+</li>
+
+    
           <li><Logout/></li>
         </ul>
         </div>

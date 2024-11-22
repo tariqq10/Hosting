@@ -1,79 +1,148 @@
-
+/* Base button styles */
 button {
-  margin: 5px;
-  padding: 12px 18px;
-  border: 1px solid #ddd;
+  margin: 8px;
+  padding: 12px 20px;
+  border: none;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #f8f9fa;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  font-family: 'Timeless', sans-serif;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: 'Timeless', system-ui, -apple-system, sans-serif;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  color: #4a4a4a;
+  text-align: center;
+  flex-grow: 1;  /* Make buttons grow to equal size */
 }
 
 button:hover {
-  background-color: #e0e0e0;
+  background-color: #e9ecef;
   transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 button:active {
-  transform: translateY(1px);
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Category Div Styling */
+/* Category button specific styles */
+#category-btn {
+  display: grid;
+  background-color: #007bff;
+  color: white;
+  width: 50%;
+  
+}
+
+#category-btn:hover {
+  background-color: #a41029;
+}
+
+#categoryAdd-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+#categoryAdd-btn:hover {
+  background-color: #661111;
+}
+
+/* Category container styling */
 .category-div {
-  margin-top: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f5f5f5;
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
 }
 
-/* Category Title Styling */
+.category-div:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Category title styling */
 .category-Title {
   color: #c1121f;
-  font-size: 1.5em;
-  text-decoration: underline;
-  margin-bottom: 15px;
-  font-family: 'Timeless', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-family: 'Timeless', system-ui, -apple-system, sans-serif;
+  position: relative;
+  padding-bottom: 8px;
 }
 
+.category-Title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #c1121f;
+  border-radius: 2px;
+}
+
+/* Button group styling */
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;  /* Center buttons */
+  align-items: center;
+  width: 100%;  /* Ensure button group takes full width */
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
   button {
     padding: 10px 16px;
-    font-size: 0.95em;
+    font-size: 0.9rem;
   }
 
   .category-div {
-    margin-top: 18px;
-    padding: 12px;
+    margin-top: 20px;
+    padding: 16px;
   }
 
   .category-Title {
-    font-size: 1.4em;
+    font-size: 1.3rem;
   }
 }
 
 @media (max-width: 480px) {
   button {
     padding: 8px 14px;
-    font-size: 0.85em;
+    font-size: 0.85rem;
+    margin: 6px;
   }
 
   .category-div {
-    margin-top: 12px;
-    padding: 10px;
+    margin-top: 16px;
+    padding: 14px;
   }
 
   .category-Title {
-    font-size: 1.2em;
+    font-size: 1.2rem;
+  }
+
+  .button-group {
+    gap: 6px;
   }
 }
-#category-btn{
-  color: white;
+
+/* Focus states for accessibility */
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(193, 18, 31, 0.3);
 }
-#categoryAdd-btn{
-  color: white;
-  background-color: #772222;
+
+/* Disabled state */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }

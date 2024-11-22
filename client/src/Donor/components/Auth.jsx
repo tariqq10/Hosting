@@ -8,8 +8,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 
-// Define baseURL for API requests
-const baseURL = import.meta.env.VITE_SERVER_URL;
+// Hardcoded baseURL for API requests
+const baseURL = 'https://hosting-33ri.onrender.com'; // Directly hardcoded URL
 
 const themes = [
   // Same theme array...

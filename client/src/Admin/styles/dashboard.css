@@ -190,4 +190,6 @@ p {
 }
 #orgDel-btn{
   color: white;
+  width: 30%;
+  display: block;
 }

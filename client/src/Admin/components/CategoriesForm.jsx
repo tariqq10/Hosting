@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 
-const baseURL = import.meta.env.VITE_SERVER_URL; // Define base URL at the top
+// Hardcoded base URL for API
+const baseURL = "https://hosting-33ri.onrender.com"; // Replace with the actual API URL
 
 const CategoriesForm = () => {
     const [categories, setCategories] = useState([]);

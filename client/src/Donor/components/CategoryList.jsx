@@ -5,8 +5,8 @@ const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState(""); // State for selected description
 
-  // Define base URL from the environment variable
-  const baseURL = import.meta.env.VITE_SERVER_URL;
+  // Hardcoded base URL
+  const baseURL = "https://hosting-33ri.onrender.com"; // Replace with the correct base URL
 
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("session"));
@@ -14,7 +14,7 @@ const CategoriesList = () => {
 
     const accessToken = session.access_token;
 
-    // Use the baseURL with the endpoint
+    // Use the hardcoded baseURL with the endpoint
     fetch(`${baseURL}/categories`, {
       method: "GET",
       headers: {

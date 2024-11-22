@@ -3,8 +3,8 @@ import AdminNavBar from "../components/AdminNavBar";
 import '../styles/requestManagement.css';
 import CategoriesList from "../components/CategoryList";
 
-// Define the baseURL constant
-const baseURL = import.meta.env.VITE_SERVER_URL;
+// Hardcoding the baseURL directly
+const baseURL = "https://hosting-33ri.onrender.com";
 
 const DonationRequest = () => {
   const [requests, setRequests] = useState([]);

@@ -5,7 +5,8 @@ import { useFormik } from 'formik';
 import * as Yup from "yup";
 import toast from 'react-hot-toast';
 
-const baseURL = import.meta.env.VITE_SERVER_URL;  // Define baseURL as a constant
+// Hardcoding the URL directly
+const baseURL = 'https://hosting-33ri.onrender.com';  // Hardcoded URL
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Login = () => {
     },
     onSubmit: async (values) => {
       try {
-        const res = await fetch(`${baseURL}/login`, {  // Use the baseURL constant
+        const res = await fetch(`${baseURL}/login`, {  // Using the hardcoded URL here
           method: "POST",
           headers: {
             "Content-Type": "application/json",

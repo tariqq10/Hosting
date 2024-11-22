@@ -14,8 +14,8 @@ const AdminDashboard = () => {
 
   const [categories, setCategories] = useState([]);
 
-  // Define the baseURL constant
-  const baseURL = import.meta.env.VITE_SERVER_URL;
+  // Hardcoding the API URL directly
+  const baseURL = 'https://hosting-33ri.onrender.com'; // Replace with your hardcoded URL
 
   useEffect(() => {
     // Fetching stats and categories data
@@ -30,7 +30,7 @@ const AdminDashboard = () => {
 
       try {
         // Fetching stats
-        const statsResponse = await fetch(`${baseURL}/reports`, {  // Use baseURL here
+        const statsResponse = await fetch(`${baseURL}/reports`, {  // Use the hardcoded baseURL here
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

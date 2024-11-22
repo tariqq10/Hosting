@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axiosInstance from "./utils/axiosInstance";  // Corrected import path
+import axiosInstance from "../utils/axiosInstance";  // Corrected import path
 import { useFormik } from "formik";
 import * as Yup from "yup";
 

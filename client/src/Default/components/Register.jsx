@@ -7,8 +7,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 
-// Define the baseURL constant
-const baseURL = import.meta.env.VITE_SERVER_URL;
+// Hardcoded API URL
+const baseURL = "https://hosting-33ri.onrender.com"; // Use the direct URL here
 
 const themes = [
   // Same theme array...
@@ -48,7 +48,7 @@ const Auth = () => {
       confirm_password: "",
     },
     onSubmit: async (values) => {
-      const res = await fetch(`${baseURL}/users`, { // Use baseURL here
+      const res = await fetch(`${baseURL}/users`, { // Use hardcoded baseURL here
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import axiosInstance from "../axiosInstance";  // Import the custom axios instance
+import axiosInstance from "../utils/axiosInstance";   // Import the custom axios instance
 
 const DonationHistory = () => {
   const [requests, setRequests] = useState([]);

@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Define baseURL using environment variable
-const baseURL = import.meta.env.VITE_SERVER_URL;
+// Hardcoded base URL
+const baseURL = "https://hosting-33ri.onrender.com"; // Replace with your actual endpoint
 
 const initialState = {
   donationRequests: [],

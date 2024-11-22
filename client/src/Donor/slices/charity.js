@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// Create an axios instance with the baseURL from environment variable
+// Create an axios instance with the hardcoded baseURL
 const api = axios.create({
-    baseURL: `${import.meta.env.VITE_SERVER_URL}/api`, // Use environment variable for dynamic baseURL
+    baseURL: 'https://hosting-33ri.onrender.com/api', // Use the hardcoded baseURL
     headers: {
         "Content-Type": 'application/json',
     },
@@ -23,4 +23,3 @@ api.interceptors.request.use(
 
 // Define the function to post a donation
 export const postDonation = (donationData) => api.post('/donations', donationData);
-

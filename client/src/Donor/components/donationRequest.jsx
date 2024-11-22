@@ -16,8 +16,8 @@ const Requests = () => {
   // Ref for donation form to scroll to it automatically
   const donationFormRef = useRef(null);
 
-  // Define the baseURL for your API
-  const baseURL = import.meta.env.VITE_SERVER_URL;
+  // Hardcoded base URL for the API
+  const baseURL = "https://hosting-33ri.onrender.com";  // Replace with your actual API URL
 
   useEffect(() => {
     if (token) {
@@ -48,7 +48,7 @@ const Requests = () => {
     } else {
       setError("No access token found. Please log in.");
     }
-  }, [token, baseURL]);  // Add baseURL to the dependencies of useEffect
+  }, [token]);  // baseURL doesn't need to be in the dependencies
 
   const handleClick = (donationRequest) => {
     setSelectedDonation(donationRequest);
