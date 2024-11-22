@@ -1,4 +1,4 @@
-// import React, { useState } from 'react';
+import axios from "axios";  // Import axios instance
 import Swal from "sweetalert2";
 import { FaGoogle, FaFacebook, FaGithub } from "react-icons/fa";
 import "../styles/Auth.css"; // Ensure your CSS file is imported
@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+import { postDonation } from "../api";  // Assuming this is your API handler
 
 const themes = [
   // Same theme array...
@@ -53,12 +54,8 @@ const AuthNGO = () => {
       phone: "",
     },
     onSubmit: async (values) => {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users`,{
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      try {
+        const response = await axios.post('/users', {
           role: values.role,
           organization_name: values.organization_name,
           organization_description: values.organization_description,
@@ -69,17 +66,18 @@ const AuthNGO = () => {
           first_name: values.first_name,
           last_name: values.last_name,
           phone: values.phone,
-        }),
-      });
-      const data = await res.json();
-      console.log(data)
+        });
 
-      if (data?.access_token) {
-        toast.success(data.message);
-        localStorage.setItem("session", JSON.stringify(data));
-        navigate("/ngo");
-      } else {
-        toast.error(data.message);
+        if (response?.data?.access_token) {
+          toast.success(response.data.message);
+          localStorage.setItem("session", JSON.stringify(response.data));
+          navigate("/ngo");
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error("An error occurred during registration. Please try again.");
+        console.error("Registration Error:", error);
       }
     },
   });
@@ -94,9 +92,6 @@ const AuthNGO = () => {
     }
   };
 
-  
-
-
   return (
     <div className="auth-container">
       <DefaultDashboard />
@@ -109,15 +104,13 @@ const AuthNGO = () => {
               <h4>Register</h4>
               <form onSubmit={formik.handleSubmit}>
 
-
-                <select>
-                  type="text"
+                <select
                   name="role"
                   value={formik.values.role}
-                  onChange={formik.handleChange}
+                  onChange={handleRole}  // Use the handleRole function for role selection
                   helpertext={formik.errors.first_name}
                   color={formik.errors.role ? "failure" : undefined}
-                  
+                >
                   <option value="" disabled>Select Role</option>
                   <option value="ngo">NGO</option>
                   <option value="donor">Donor</option>
@@ -157,7 +150,7 @@ const AuthNGO = () => {
                 <input
                   type="password"
                   name="confirm_password"
-                  placeholder="confirmation Password"
+                  placeholder="Confirmation Password"
                   value={formik.values.confirm_password}
                   onChange={formik.handleChange}
                   helpertext={formik.errors.confirm_password}

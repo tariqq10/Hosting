@@ -5,6 +5,8 @@ import { useFormik } from 'formik';
 import * as Yup from "yup";
 import toast from 'react-hot-toast';
 
+const baseURL = import.meta.env.VITE_SERVER_URL;  // Define baseURL as a constant
+
 const Login = () => {
   const navigate = useNavigate();
 
@@ -18,33 +20,37 @@ const Login = () => {
       password: "",
     },
     onSubmit: async (values) => {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+      try {
+        const res = await fetch(`${baseURL}/login`, {  // Use the baseURL constant
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
 
-      const data = await res.json();
-      if (data?.access_token) {
-        toast.success(data.message);
+        const data = await res.json();
 
-        localStorage.setItem("session", JSON.stringify(data));
+        if (data?.access_token) {
+          toast.success(data.message);
+          localStorage.setItem("session", JSON.stringify(data));
 
-        const { role } = data.user;
-        if (role === "donor") {
-          navigate("/donor");
-        } else if (role === "ngo") {
-          navigate("/ngo");
-        } else if (role === "admin") {
-          navigate("/admin");
+          const { role } = data.user;
+          if (role === "donor") {
+            navigate("/donor");
+          } else if (role === "ngo") {
+            navigate("/ngo");
+          } else if (role === "admin") {
+            navigate("/admin");
+          } else {
+            toast.error("Invalid Email/Password");
+          }
+
         } else {
-          toast.error("Invalid Email/Password");
+          toast.error(data.message);
         }
-
-      } else {
-        toast.error(data.message);
+      } catch (error) {
+        toast.error("An error occurred while logging in. Please try again.");
       }
     }
   });

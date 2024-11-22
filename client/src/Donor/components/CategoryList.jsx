@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
-import NavBar from "./NavBar"
+import NavBar from "./NavBar";
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState(""); // State for selected description
+
+  // Define base URL from the environment variable
+  const baseURL = import.meta.env.VITE_SERVER_URL;
 
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("session"));
     if (!session) return;
 
     const accessToken = session.access_token;
-    fetch("${import.meta.env.VITE_SERVER_URL}/categories", {
+
+    // Use the baseURL with the endpoint
+    fetch(`${baseURL}/categories`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +34,7 @@ const CategoriesList = () => {
       .catch((error) => {
         console.error("Error fetching categories:", error);
       });
-  }, []);
+  }, [baseURL]);
 
   const handleCategoryClick = (description) => {
     setSelectedDescription(description); // Update description based on button clicked
@@ -38,7 +43,7 @@ const CategoriesList = () => {
   return (
     <div>
       <div className="category-div">
-        <NavBar/>
+        <NavBar />
         {categories.length > 0 ? (
           categories.map((category) => (
             <button

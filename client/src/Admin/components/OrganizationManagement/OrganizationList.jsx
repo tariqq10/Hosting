@@ -10,6 +10,8 @@ const OrganizationList = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const baseURL = import.meta.env.VITE_SERVER_URL; // Get base URL from the environment
+
   const fetchOrganizations = async () => {
     const accessToken = localStorage.getItem('session');
     let access = null;
@@ -23,7 +25,7 @@ const OrganizationList = () => {
     }
 
     try {
-      const response = await axios.get('${import.meta.env.VITE_SERVER_URL}/organizations', {
+      const response = await axios.get(`${baseURL}/organizations`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
@@ -56,7 +58,7 @@ const OrganizationList = () => {
     }
 
     try {
-      await axios.delete(`${import.meta.env.VITE_SERVER_URL}/organizations/${organization_id}`, {
+      await axios.delete(`${baseURL}/organizations/${organization_id}`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
@@ -85,7 +87,7 @@ const OrganizationList = () => {
 
     try {
       await axios.patch(
-        `${import.meta.env.VITE_SERVER_URL}/organizations/${organization_id}`,
+        `${baseURL}/organizations/${organization_id}`,
         updatedData,
         { headers: { Authorization: `Bearer ${access}` } }
       );

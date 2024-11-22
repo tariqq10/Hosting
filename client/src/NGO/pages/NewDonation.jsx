@@ -2,29 +2,28 @@ import { useDispatch } from "react-redux";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "./utils/axiosInstance";  // Corrected import path
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const NewDonationForm = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const access = localStorage.getItem("session");
 
-  console.log(JSON.parse(access).access_token)
+  console.log(JSON.parse(access).access_token);
 
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("${import.meta.env.VITE_SERVER_URL}/categories")
+    axiosInstance
+      .get("/categories")  // Use relative path since baseURL is already set
       .then((res) => {
         if (Array.isArray(res.data)) {
           setCategories(res.data);
         } else {
-          console.error("Error", error);
+          console.error("Error fetching categories:", res);
         }
       })
       .catch((error) => {
@@ -44,28 +43,25 @@ const NewDonationForm = () => {
       description: "",
       target_amount: "",
       category_name: "",
-      status:"pending",
+      status: "pending",
     },
     onSubmit: async (values) => {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/requests`, {
-        method: "POST",
+      const res = await axiosInstance.post("/requests", {
+        title: values.title,
+        description: values.description,
+        target_amount: values.target_amount,
+        category_name: values.category_name,
+        status: values.status,
+      }, {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${JSON.parse(access).access_token}`,
+          "Authorization": `Bearer ${JSON.parse(access).access_token}`,
         },
-        body: JSON.stringify({
-          title: values.title,
-          description: values.description,
-          target_amount: values.target_amount,
-          category_name: values.category_name,
-          status: values.status,
-        }),
       });
 
-      console.log(values)
-      const data = await res.json();
+      console.log(values);
+      const data = res.data;
 
-      console.log(data)
+      console.log(data);
 
       if (Object.keys(data).length > 1) {
         navigate("/new-donation");
@@ -121,8 +117,8 @@ const NewDonationForm = () => {
                 );
               })}
             </select>
-            {formik.touched.category_id && formik.errors.category_id ? (
-              <div style={{ color: "red" }}>{formik.errors.category_id}</div>
+            {formik.touched.category_name && formik.errors.category_name ? (
+              <div style={{ color: "red" }}>{formik.errors.category_name}</div>
             ) : null}
 
             <button type="submit">Create Request</button>
@@ -132,4 +128,5 @@ const NewDonationForm = () => {
     </div>
   );
 };
+
 export default NewDonationForm;

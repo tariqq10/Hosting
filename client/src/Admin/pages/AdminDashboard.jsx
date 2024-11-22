@@ -14,6 +14,9 @@ const AdminDashboard = () => {
 
   const [categories, setCategories] = useState([]);
 
+  // Define the baseURL constant
+  const baseURL = import.meta.env.VITE_SERVER_URL;
+
   useEffect(() => {
     // Fetching stats and categories data
     const fetchData = async () => {
@@ -27,7 +30,7 @@ const AdminDashboard = () => {
 
       try {
         // Fetching stats
-        const statsResponse = await fetch('${import.meta.env.VITE_SERVER_URL}/reports', {
+        const statsResponse = await fetch(`${baseURL}/reports`, {  // Use baseURL here
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -46,7 +49,6 @@ const AdminDashboard = () => {
           denied: statsData.data.total_donation_requests - statsData.data.total_approved_requests - statsData.data.total_pending_requests,
         });
 
-        
         const categories = statsData.data.donations_by_category;
         setCategories(categories);
 
@@ -91,4 +93,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard; 
+export default AdminDashboard;

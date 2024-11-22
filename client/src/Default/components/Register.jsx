@@ -7,6 +7,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 
+// Define the baseURL constant
+const baseURL = import.meta.env.VITE_SERVER_URL;
+
 const themes = [
   // Same theme array...
 ];
@@ -45,7 +48,7 @@ const Auth = () => {
       confirm_password: "",
     },
     onSubmit: async (values) => {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users`, {
+      const res = await fetch(`${baseURL}/users`, { // Use baseURL here
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,13 +86,12 @@ const Auth = () => {
   const handleRole = (event) => {
     const selectedRole = event.target.value;
 
-
     formik.setFieldValue('role', selectedRole);
 
-    if (selectedRole === "ngo"){
-      navigate("/users/ngo")
+    if (selectedRole === "ngo") {
+      navigate("/users/ngo");
     }
-  }
+  };
 
   return (
     <div className="auth-container">
@@ -167,7 +169,7 @@ const Auth = () => {
                 <input
                   type="password"
                   name="confirm_password"
-                  placeholder="confirmation Password"
+                  placeholder="Confirmation Password"
                   value={formik.values.confirm_password}
                   onChange={formik.handleChange}
                   helpertext={formik.errors.confirm_password}
@@ -211,4 +213,3 @@ const Auth = () => {
 };
 
 export default Auth;
-

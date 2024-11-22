@@ -13,6 +13,9 @@ const OrganizationForm = ({ initialData, onSubmitSuccess }) => {
   });
   const [error, setError] = useState(null);
 
+  // Fetch the base URL from the environment variable
+  const baseURL = import.meta.env.VITE_SERVER_URL;
+
   useEffect(() => {
     if (initialData) {
       setOrgData(initialData);
@@ -31,9 +34,9 @@ const OrganizationForm = ({ initialData, onSubmitSuccess }) => {
 
         try {
           const response = await axios.get(
-            `${import.meta.env.VITE_SERVER_URL}/${organization_id}`,
+            `${baseURL}/organizations/${organization_id}`,
             {
-              headers: { Authorization: `Bearer ${access}` }
+              headers: { Authorization: `Bearer ${access}` },
             }
           );
           setOrgData(response.data);
@@ -48,7 +51,7 @@ const OrganizationForm = ({ initialData, onSubmitSuccess }) => {
 
       fetchOrganization();
     }
-  }, [organization_id, initialData, navigate]);
+  }, [organization_id, initialData, navigate, baseURL]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -80,13 +83,13 @@ const OrganizationForm = ({ initialData, onSubmitSuccess }) => {
     try {
       if (organization_id) {
         await axios.patch(
-          `${import.meta.env.VITE_SERVER_URL}/organizations/${organization_id}`,
+          `${baseURL}/organizations/${organization_id}`,
           orgData,
           { headers: { Authorization: `Bearer ${access}` } }
         );
       } else {
         await axios.post(
-          '${import.meta.env.VITE_SERVER_URL}/organizations',
+          `${baseURL}/organizations`,
           orgData,
           { headers: { Authorization: `Bearer ${access}` } }
         );
@@ -153,5 +156,3 @@ const OrganizationForm = ({ initialData, onSubmitSuccess }) => {
 };
 
 export default OrganizationForm;
-
-//works

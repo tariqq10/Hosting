@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "../styles/profile.css"; // Corrected path
 import NavBar from "./NavBar";
 
-
 const Profile = () => {
   const [donor, setDonor] = useState({});
   const [donations, setDonations] = useState([]);
@@ -10,17 +9,21 @@ const Profile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
+  const baseURL = import.meta.env.VITE_SERVER_URL;  // Use baseURL
+
   useEffect(() => {
     const fetchDonorData = async () => {
       try {
-        const response = await fetch("${import.meta.env.VITE_SERVER_URL}/users");
+        // Fetch donor details from the baseURL
+        const response = await fetch(`${baseURL}/users`);
         const data = await response.json();
         setDonor(data);
         setName(data.name);
         setEmail(data.email);
 
+        // Fetch donations based on user_id from the baseURL
         const donationsResponse = await fetch(
-          `/api/donations?user_id=${data.user_id}`
+          `${baseURL}/api/donations?user_id=${data.user_id}`
         );
         const donationsData = await donationsResponse.json();
         setDonations(donationsData);
@@ -32,14 +35,15 @@ const Profile = () => {
     };
 
     fetchDonorData();
-  }, []);
+  }, [baseURL]);
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     const updatedDonor = { name, email };
 
     try {
-      const response = await fetch("${import.meta.env.VITE_SERVER_URL}/users", {
+      // Update donor profile using the baseURL
+      const response = await fetch(`${baseURL}/users`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedDonor),
@@ -57,7 +61,7 @@ const Profile = () => {
 
   return (
     <div className="profile">
-      <NavBar/>
+      <NavBar />
       <h2>Donor Profile</h2>
       <form onSubmit={handleProfileUpdate}>
         <label>Name:</label>
